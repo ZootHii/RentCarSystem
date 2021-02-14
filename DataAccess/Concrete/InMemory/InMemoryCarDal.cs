@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using DataAccess.Abstract;
 using Entities.Concrete;
 
@@ -13,9 +15,9 @@ namespace DataAccess.Concrete.InMemory
         {
             _cars = new List<Car>
             {
-                new Car {Id = 1, BrandId = 1, ColorId = 1, ModelYear = 2001, DailyPrice = 99.99, Description = "Temiz"},
-                new Car {Id = 2, BrandId = 2, ColorId = 1, ModelYear = 2007, DailyPrice = 199.99, Description = "Temiz"},
-                new Car {Id = 3, BrandId = 1, ColorId = 2, ModelYear = 2018, DailyPrice = 299.99, Description = "Temiz"},
+                new Car {Id = 1, BrandId = 1, ColorId = 1, ModelYear = new DateTime(2001,01,01), DailyPrice = 99.99M, Description = "Temiz"},
+                new Car {Id = 2, BrandId = 2, ColorId = 1, ModelYear = new DateTime(2007,01,01), DailyPrice = 199.99M, Description = "Temiz"},
+                new Car {Id = 3, BrandId = 1, ColorId = 2, ModelYear = new DateTime(2018,01,01), DailyPrice = 299.99M, Description = "Temiz"},
             };
         }
         
@@ -51,6 +53,16 @@ namespace DataAccess.Concrete.InMemory
         {
             var toDelete = _cars.SingleOrDefault(c => c.Id == car.Id);
             _cars.Remove(toDelete);
+        }
+
+        public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Car Get(Expression<Func<Car, bool>> filter)
+        {
+            throw new NotImplementedException();
         }
     }
 }
