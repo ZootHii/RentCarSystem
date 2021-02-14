@@ -1,4 +1,5 @@
-﻿using Entities.Abstract;
+﻿using System;
+using Entities.Abstract;
 
 namespace Entities.Concrete
 {
@@ -7,8 +8,8 @@ namespace Entities.Concrete
         public int Id { get; set; }
         public int BrandId { get; set; }
         public int ColorId { get; set; }
-        public int ModelYear { get; set; }
-        public double DailyPrice { get; set; }
+        public DateTime ModelYear { get; set; }
+        public decimal DailyPrice { get; set; }
         public string Description { get; set; }
 
         public override string ToString()
@@ -16,7 +17,7 @@ namespace Entities.Concrete
             return "ID = " + Id +
                    " BrandID = " + BrandId +
                    " ColorID = " + ColorId +
-                   " ModelYear = " + ModelYear +
+                   " ModelYear = " + ModelYear.Year +
                    " DailyPrice = " + DailyPrice +
                    " Description = " + Description;
         }
