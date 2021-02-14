@@ -18,32 +18,34 @@ namespace ConsoleUI
         {
             var carManager = new CarManager(new EFCarDal());
             Console.WriteLine("-----GET ALL-----");
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetAllCars())
             {
                 Console.WriteLine(car.ToString());
             }
 
             Console.WriteLine("-----GET ALL BY BRAND-----");
-            foreach (var car in carManager.GetAllByBrandId(1))
+            foreach (var car in carManager.GetCarsByBrandId(1))
             {
                 Console.WriteLine(car.ToString());
             }
 
             Console.WriteLine("-----GET ALL BY COLOR-----");
-            foreach (var car in carManager.GetAllByColorId(3))
+            foreach (var car in carManager.GetCarsByColorId(3))
             {
                 Console.WriteLine(car.ToString());
             }
 
             Console.WriteLine("-----GET BY ID-----");
-            Console.WriteLine(carManager.GetById(4).ToString());
+            Console.WriteLine(carManager.GetCarById(4).ToString());
+            
+            //carManager.Add();
         }
 
         private static void Test1()
         {
             Console.WriteLine("-----BEFORE UPDATE-----");
             var carManager = new CarManager(new InMemoryCarDal());
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetAllCars())
             {
                 Console.WriteLine(car.ToString());
             }
@@ -56,7 +58,7 @@ namespace ConsoleUI
             carManager.Update(toUpdate);
 
             Console.WriteLine("-----AFTER UPDATE-----");
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetAllCars())
             {
                 Console.WriteLine(car.ToString());
             }
