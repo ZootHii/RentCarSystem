@@ -38,7 +38,14 @@ namespace ConsoleUI
             Console.WriteLine("-----GET BY ID-----");
             Console.WriteLine(carManager.GetCarById(4).ToString());
             
-            //carManager.Add();
+            Console.WriteLine("-----ADD CAR-----");
+            carManager.Add(new Car{BrandId = 3, ColorId = 5, ModelYear = new DateTime(1777, 01, 01), DailyPrice = 300.0M, Description = "Boş"});
+            carManager.Add(new Car{BrandId = 3, ColorId = 5, ModelYear = new DateTime(2000, 01, 01), DailyPrice = 0M, Description = "Boş"});
+            // it works don't add again //carManager.Add(new Car{BrandId = 3, ColorId = 5, ModelYear = new DateTime(2005, 01, 01), DailyPrice = 300.0M, Description = "Boş"});
+            foreach (var car in carManager.GetAllCars())
+            {
+                Console.WriteLine(car.ToString());
+            }  
         }
 
         private static void Test1()
