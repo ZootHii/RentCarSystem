@@ -11,12 +11,29 @@ namespace ConsoleUI
         internal static void Main(string[] args)
         {
             //Test1();
-            Test2();
+            //Test2();
+            Test3();
+        }
+
+        private static void Test3()
+        {
+            var carManager = new CarManager(new EfCarDal());
+            Console.WriteLine("-----GET ALL CARS-----");
+            foreach (var car in carManager.GetAllCars())
+            {
+                Console.WriteLine(car.ToString());
+            }
+
+            Console.WriteLine("-----GET CAR DETAILS-----");
+            foreach (var carDetail in carManager.GetCarDetails())
+            {
+                Console.WriteLine(carDetail.ToString());
+            }
         }
 
         private static void Test2()
         {
-            var carManager = new CarManager(new EFCarDal());
+            var carManager = new CarManager(new EfCarDal());
             Console.WriteLine("-----GET ALL-----");
             foreach (var car in carManager.GetAllCars())
             {
