@@ -1,0 +1,24 @@
+﻿namespace Business.Constants
+{
+    public static class Messages
+    {
+        public static string SystemMaintenance => "System is in Maintenance";
+        public static string CarAdded => "Car is successfully Added";
+        public static string CarUpdated => "Car is successfully Updated";
+        public static string CarDeleted => "Car is successfully Deleted";
+        public static string CarInvalidModelYear => "Model Year must be bigger than 1999";
+        public static string CarInvalidDailyPrice => "Daily Price must be bigger than 0";
+        public static string CarsListed => "All cars are successfully listed";
+        public static string CarsListedDetails => "All cars details are successfully listed";
+        public static string CarsListedBrand => "All cars are successfully listed by brand";
+        public static string CarsListedColor => "All cars are successfully listed by color";
+        public static string RentalAdded => "Rental is successfully Added";
+        public static string RentalUpdated => "Rental is successfully Updated";
+        public static string RentalDeleted => "Rental is successfully Deleted";
+        public static string RentalInvalidReturnDate => "Return date must be at least 2 hours more than rental date";
+        public static string RentalsListed => "All rentals are successfully listed";
+        public static string RentalsListedDetails => "All rentals details are successfully listed";
+        public static string RentalsListedCar => "All rentals are successfully listed by car";
+        public static string RentalsListedCustomer => "All rentals are successfully listed by customer";
+    }
+}
