@@ -9,7 +9,7 @@ namespace Entities.Concrete.DTOs
         public int CarId { get; set; }
         public int CustomerId { get; set; }
         public DateTime RentDate { get; set; }
-        public DateTime ReturnDate { get; set; }
+        public DateTime? ReturnDate { get; set; }
         public string BrandName { get; set; }
         public DateTime ModelYear { get; set; }
         public string ColorName { get; set; }
@@ -22,11 +22,12 @@ namespace Entities.Concrete.DTOs
 
         public override string ToString()
         {
+            
             return "RentalID = " + RentalId +
                    " / CarId = " + CarId +
                    " / CustomerId = " + CustomerId +
                    " / RentDate = " + RentDate.Date +
-                   " / ReturnDate = " + ReturnDate.Date +
+                   " / ReturnDate = " + ReturnDate +
                    " / BrandName = " + BrandName +
                    " / ModelYear = " + ModelYear.Year +
                    " / ColorName = " + ColorName +

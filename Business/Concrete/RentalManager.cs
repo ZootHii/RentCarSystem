@@ -29,7 +29,7 @@ namespace Business.Concrete
             if (rental.ReturnDate != null)
             {
                 var dateTime = rental.ReturnDate - rental.RentDate;
-                if (dateTime.Value.Hours <= 0 && dateTime.Value.Hours <= 2 && dateTime.Value.Minutes <= 0)
+                if (dateTime < new TimeSpan(02,00,00))
                 {
                     return new ErrorResult(Messages.RentalInvalidReturnDate);
                 }
@@ -48,7 +48,7 @@ namespace Business.Concrete
             if (rental.ReturnDate != null)
             {
                 var dateTime = rental.ReturnDate - rental.RentDate;
-                if (dateTime.Value.Days <= 0 && dateTime.Value.Hours <= 2 && dateTime.Value.Minutes <= 0)
+                if (dateTime < new TimeSpan(02,00,00))
                 {
                     return new ErrorResult(Messages.RentalInvalidReturnDate);
                 }

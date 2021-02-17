@@ -55,11 +55,22 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.UserInvalidName);
             }
 
+            if (string.IsNullOrEmpty(user.FirstName) || user.FirstName == " ")
+            {
+                return new ErrorResult(Messages.UserInvalidName);
+            }
+
             isValid = !hasNumber.IsMatch(user.LastName);
             if (!isValid)
             {
                 return new ErrorResult(Messages.UserInvalidName);
             }
+            
+            if (string.IsNullOrEmpty(user.LastName) || user.LastName == " ")
+            {
+                return new ErrorResult(Messages.UserInvalidName);
+            }
+            
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
         }
@@ -89,11 +100,22 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.UserInvalidName);
             }
 
+            if (string.IsNullOrEmpty(user.FirstName) || user.FirstName == " ")
+            {
+                return new ErrorResult(Messages.UserInvalidName);
+            }
+            
             isValid = !hasNumber.IsMatch(user.LastName);
             if (!isValid)
             {
                 return new ErrorResult(Messages.UserInvalidName);
             }
+            
+            if (string.IsNullOrEmpty(user.LastName) || user.LastName == " ")
+            {
+                return new ErrorResult(Messages.UserInvalidName);
+            }
+            
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }

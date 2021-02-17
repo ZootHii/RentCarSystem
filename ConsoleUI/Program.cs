@@ -5,6 +5,7 @@ using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
+using Entities.Concrete.DTOs;
 
 namespace ConsoleUI
 {
@@ -17,8 +18,7 @@ namespace ConsoleUI
             //Test3();
             //Test4();
             //Test5AddUser();
-
-            Test6GetUser();
+            //Test6GetUser();
         }
 
         private static void Test6GetUser()
