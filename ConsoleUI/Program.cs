@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
@@ -13,7 +15,171 @@ namespace ConsoleUI
             //Test1();
             //Test2();
             //Test3();
-            Test4();
+            //Test4();
+            //Test5AddUser();
+
+            Test6GetUser();
+        }
+
+        private static void Test6GetUser()
+        {
+            var userManager = new UserManager(new EfUserDal());
+            Console.WriteLine("-----GetUsersByFirstName 'ah'-----");
+            var result = userManager.GetUsersByFirstName("ah".ToLower());
+            if (result.Success)
+            {
+                foreach (var user in result.Data)
+                {
+                    Console.WriteLine(user.ToString());
+                }
+
+                Console.WriteLine("\n" + result.Message);
+            }
+            else
+            {
+                Console.WriteLine("\n" + result.Message);
+            }
+
+            Console.WriteLine("-----GetUsersByLastName 'yağ'-----");
+            var result2 = userManager.GetUsersByLastName("yağ".ToLower());
+            if (result2.Success)
+            {
+                foreach (var user in result2.Data)
+                {
+                    Console.WriteLine(user.ToString());
+                }
+
+                Console.WriteLine("\n" + result2.Message);
+            }
+            else
+            {
+                Console.WriteLine("\n" + result2.Message);
+            }
+
+            Console.WriteLine("-----GetUsersByEMail 'im'-----");
+            var result3 = userManager.GetUsersByEMail("im".ToLower());
+            if (result3.Success)
+            {
+                foreach (var user in result3.Data)
+                {
+                    Console.WriteLine(user.ToString());
+                }
+
+                Console.WriteLine("\n" + result3.Message);
+            }
+            else
+            {
+                Console.WriteLine("\n" + result3.Message);
+            }
+        }
+
+        private static void Test5AddUser()
+        {
+            var userManager = new UserManager(new EfUserDal());
+            var user1 = new User
+            {
+                FirstName = "Ahmet",
+                LastName = "Yıldırım",
+                EMail = "ahmet.zoothii@gmail.com",
+                Password = "Ahmet123"
+            };
+            var user2 = new User
+            {
+                FirstName = "Fatih",
+                LastName = "Yıldırım",
+                EMail = "fatih@gmail.com",
+                Password = "Fatih123"
+            };
+            var user3 = new User
+            {
+                FirstName = "Selim",
+                LastName = "Yıldırım",
+                EMail = "selim@gmail.com",
+                Password = "Selim123"
+            };
+            var user4 = new User
+            {
+                FirstName = "Burak",
+                LastName = "Yağmur",
+                EMail = "burak@gmail.com",
+                Password = "Burak123"
+            };
+            var user5 = new User
+            {
+                FirstName = "Yıldırım",
+                LastName = "Ahmet",
+                EMail = "yıldırım@gmail.com",
+                Password = "Yıldırım123"
+            };
+            var user6 = new User
+            {
+                FirstName = "Ahmet",
+                LastName = "Yıldırım",
+                EMail = "ahmet.zoothii@",
+                Password = "Ahmet123"
+            };
+            var user7 = new User
+            {
+                FirstName = "Ahmet",
+                LastName = "Yıldırım",
+                EMail = "ahmet.@gmailom",
+                Password = "Ahmet123"
+            };
+            var user8 = new User
+            {
+                FirstName = "Ahmet",
+                LastName = "Yıldırım",
+                EMail = "ahmet.zoothii@gmail.com",
+                Password = "hmet123"
+            };
+            var user9 = new User
+            {
+                FirstName = "Ahmet",
+                LastName = "Yıldırım",
+                EMail = "ahmet.zoothii@gmail.com",
+                Password = "Ahmet"
+            };
+            var user10 = new User
+            {
+                FirstName = "Ahmet2",
+                LastName = "Yıldırım",
+                EMail = "ahmet.zoothii@gmail.com",
+                Password = "Ahmet123"
+            };
+            var user11 = new User
+            {
+                FirstName = "Ahmet",
+                LastName = "Yıldırım3",
+                EMail = "ahmet.zoothii@gmail.com",
+                Password = "Ahmet123"
+            };
+
+            var addUserList = new List<User>
+            {
+                user1,
+                user2,
+                user3,
+                user4,
+                user5,
+                user6,
+                user7,
+                user8,
+                user9,
+                user10,
+                user11
+            };
+            Console.WriteLine("-----ADD USER-----");
+            foreach (var result in addUserList.Select(user => userManager.Add(user)))
+            {
+                if (result.Success)
+                {
+                    Console.WriteLine("\n" + result.Message);
+                }
+                else
+                {
+                    Console.WriteLine("\n" + result.Message);
+                }
+            }
         }
 
         private static void Test4()

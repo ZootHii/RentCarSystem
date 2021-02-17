@@ -26,12 +26,14 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.SystemMaintenance);
             }
 
-            var dateTime = rental.ReturnDate - rental.RentDate;
-            if (dateTime.Days <= 0 && dateTime.Hours <= 2 && dateTime.Minutes <= 0)
+            if (rental.ReturnDate != null)
             {
-                return new ErrorResult(Messages.RentalInvalidReturnDate);
+                var dateTime = rental.ReturnDate - rental.RentDate;
+                if (dateTime.Value.Hours <= 0 && dateTime.Value.Hours <= 2 && dateTime.Value.Minutes <= 0)
+                {
+                    return new ErrorResult(Messages.RentalInvalidReturnDate);
+                }
             }
-            
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
@@ -42,11 +44,14 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
-            
-            var dateTime = rental.ReturnDate - rental.RentDate;
-            if (dateTime.Days <= 0 && dateTime.Hours <= 2 && dateTime.Minutes <= 0)
+
+            if (rental.ReturnDate != null)
             {
-                return new ErrorResult(Messages.RentalInvalidReturnDate);
+                var dateTime = rental.ReturnDate - rental.RentDate;
+                if (dateTime.Value.Days <= 0 && dateTime.Value.Hours <= 2 && dateTime.Value.Minutes <= 0)
+                {
+                    return new ErrorResult(Messages.RentalInvalidReturnDate);
+                }
             }
             
             _rentalDal.Update(rental);

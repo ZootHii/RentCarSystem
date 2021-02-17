@@ -12,6 +12,7 @@
         public static string CarsListedDetails => "All cars details are successfully listed";
         public static string CarsListedBrand => "All cars are successfully listed by brand";
         public static string CarsListedColor => "All cars are successfully listed by color";
+        
         public static string RentalAdded => "Rental is successfully Added";
         public static string RentalUpdated => "Rental is successfully Updated";
         public static string RentalDeleted => "Rental is successfully Deleted";
@@ -20,5 +21,16 @@
         public static string RentalsListedDetails => "All rentals details are successfully listed";
         public static string RentalsListedCar => "All rentals are successfully listed by car";
         public static string RentalsListedCustomer => "All rentals are successfully listed by customer";
+        
+        public static string UserAdded => "User is successfully Added";
+        public static string UserUpdated => "User is successfully Updated";
+        public static string UserDeleted => "User is successfully Deleted";
+        public static string UserInvalidPassword => "Invalid password";
+        public static string UserInvalidEMail => "Invalid eMail";
+        public static string UserInvalidName => "Name can not have digits";
+        public static string UsersListed => "All users are successfully listed";
+        public static string UsersListedFirstName => "All users are successfully listed by first name";
+        public static string UsersListedLastName => "All users are successfully listed by last name";
+        public static string UsersListedEMail => "All users are successfully listed by eMail";
     }
 }

@@ -5,7 +5,7 @@ namespace Entities.Concrete.DTOs
 {
     public class RentalDetailDto : IDto
     {
-        public int Id { get; set; }
+        public int RentalId { get; set; }
         public int CarId { get; set; }
         public int CustomerId { get; set; }
         public DateTime RentDate { get; set; }
@@ -22,7 +22,7 @@ namespace Entities.Concrete.DTOs
 
         public override string ToString()
         {
-            return "ID = " + Id +
+            return "RentalID = " + RentalId +
                    " / CarId = " + CarId +
                    " / CustomerId = " + CustomerId +
                    " / RentDate = " + RentDate.Date +

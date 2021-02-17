@@ -5,7 +5,7 @@ namespace Entities.Concrete.DTOs
 {
     public class CarDetailDto : IDto
     {
-        public int Id { get; set; }
+        public int CarId { get; set; }
         public string BrandName { get; set; }
         public string ColorName { get; set; }
         public DateTime ModelYear { get; set; }
@@ -14,7 +14,7 @@ namespace Entities.Concrete.DTOs
         
         public override string ToString()
         {
-            return "ID = " + Id +
+            return "CarID = " + CarId +
                    " / BrandName = " + BrandName +
                    " / ColorName = " + ColorName +
                    " / ModelYear = " + ModelYear.Year +

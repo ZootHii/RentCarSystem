@@ -10,5 +10,12 @@ namespace Entities.Concrete
         public string EMail { get; set; }
         public string Password { get; set; }
         
+        public override string ToString()
+        {
+            return "ID = " + Id +
+                   " / FirstName = " + FirstName +
+                   " / LastName = " + LastName +
+                   " / EMail = " + EMail;
+        }
     }
 }
