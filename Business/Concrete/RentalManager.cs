@@ -21,7 +21,27 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            if (DateTime.Now.Hour >= 19)
+            // TODO bunu yeni bir liste oluşturup kullanılabilir olanları orada tutup o şekilde kullanıcıya sadece onu gösterebilirim
+            var allRentals = GetAllRentals();
+            if (allRentals.Success)
+            {
+                foreach (var checkRental in allRentals.Data)
+                {
+                    if (rental.CarId == checkRental.CarId) // if this car in rentals check the return date
+                    {
+                        if (checkRental.ReturnDate == null || checkRental.ReturnDate >= DateTime.Now)
+                        {
+                            return new ErrorResult(Messages.RentalsCarInUse);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                return new ErrorResult(allRentals.Message);
+            }
+
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
@@ -34,13 +54,14 @@ namespace Business.Concrete
                     return new ErrorResult(Messages.RentalInvalidReturnDate);
                 }
             }
+            
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
 
         public IResult Update(Rental rental)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
@@ -60,7 +81,7 @@ namespace Business.Concrete
 
         public IResult Delete(Rental rental)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
@@ -71,7 +92,7 @@ namespace Business.Concrete
 
         public IDataResult<Rental> GetRentalById(int rentalId)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<Rental>(Messages.SystemMaintenance);
             }
@@ -81,7 +102,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Rental>> GetAllRentals()
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<List<Rental>>(Messages.SystemMaintenance);
             }
@@ -91,7 +112,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Rental>> GetRentalsByCarId(int carId)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<List<Rental>>(Messages.SystemMaintenance);
             }
@@ -102,7 +123,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Rental>> GetRentalsByCustomerId(int customerId)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<List<Rental>>(Messages.SystemMaintenance);
             }
@@ -113,7 +134,7 @@ namespace Business.Concrete
 
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<List<RentalDetailDto>>(Messages.SystemMaintenance);
             }

@@ -21,7 +21,7 @@ namespace Business.Concrete
         
         public IResult Add(Car car)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
@@ -42,7 +42,7 @@ namespace Business.Concrete
 
         public IResult Update(Car car)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
@@ -63,7 +63,7 @@ namespace Business.Concrete
 
         public IResult Delete(Car car)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
@@ -74,7 +74,7 @@ namespace Business.Concrete
 
         public IDataResult<Car> GetCarById(int carId)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<Car>(Messages.SystemMaintenance);
             }
@@ -84,7 +84,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAllCars()
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<List<Car>>(Messages.SystemMaintenance);
             }
@@ -94,7 +94,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<List<Car>>(Messages.SystemMaintenance);
             }
@@ -104,7 +104,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<List<Car>>(Messages.SystemMaintenance);
             }
@@ -114,7 +114,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<List<CarDetailDto>>(Messages.SystemMaintenance);
             }

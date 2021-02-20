@@ -19,6 +19,49 @@ namespace ConsoleUI
             //Test4();
             //Test5AddUser();
             //Test6GetUser();
+            //Test7Rent();
+
+        }
+
+        private static void Test7Rent()
+        {
+            // rental works perfect for 2 hours limit and in use situation
+            var rentalManager = new RentalManager(new EfRentalDal());
+
+            /*var rental2 = new Rental
+            {
+                Id = 3,
+                CarId = 3,
+                CustomerId = 4,
+                RentDate = rentalManager.GetRentalById(3).Data.RentDate - new TimeSpan(3,0,0),
+                ReturnDate = DateTime.Now + new TimeSpan(0, 14, 0)
+            };
+
+
+            var result = rentalManager.Update(rental2);
+            Console.WriteLine(result.Message);*/
+
+            /*var rental2 = new Rental
+            {
+                CarId = 3,
+                CustomerId = 1,
+                RentDate = DateTime.Now,
+                ReturnDate = DateTime.Now + new TimeSpan(5,0,0)
+            };
+            
+            var result = rentalManager.Add(rental2);
+            Console.WriteLine(result.Message);*/
+
+            var rental2 = new Rental
+            {
+                CarId = 3,
+                CustomerId = 1,
+                RentDate = DateTime.Now - new TimeSpan(3,0,0),
+                ReturnDate = DateTime.Now + new TimeSpan(0, 14, 0)
+            };
+
+            var result = rentalManager.Add(rental2);
+            Console.WriteLine(result.Message);
         }
 
         private static void Test6GetUser()

@@ -30,7 +30,7 @@ namespace Business.Concrete
 
         public IResult Add(User user)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
@@ -52,23 +52,23 @@ namespace Business.Concrete
             isValid = !hasNumber.IsMatch(user.FirstName);
             if (!isValid)
             {
-                return new ErrorResult(Messages.UserInvalidName);
+                return new ErrorResult(Messages.UserInvalidNameDigits);
             }
 
             if (string.IsNullOrEmpty(user.FirstName) || user.FirstName == " ")
             {
-                return new ErrorResult(Messages.UserInvalidName);
+                return new ErrorResult(Messages.InvalidName);
             }
 
             isValid = !hasNumber.IsMatch(user.LastName);
             if (!isValid)
             {
-                return new ErrorResult(Messages.UserInvalidName);
+                return new ErrorResult(Messages.UserInvalidNameDigits);
             }
             
             if (string.IsNullOrEmpty(user.LastName) || user.LastName == " ")
             {
-                return new ErrorResult(Messages.UserInvalidName);
+                return new ErrorResult(Messages.InvalidName);
             }
             
             _userDal.Add(user);
@@ -77,7 +77,7 @@ namespace Business.Concrete
 
         public IResult Update(User user)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
@@ -97,23 +97,23 @@ namespace Business.Concrete
             isValid = !hasNumber.IsMatch(user.FirstName);
             if (!isValid)
             {
-                return new ErrorResult(Messages.UserInvalidName);
+                return new ErrorResult(Messages.UserInvalidNameDigits);
             }
 
             if (string.IsNullOrEmpty(user.FirstName) || user.FirstName == " ")
             {
-                return new ErrorResult(Messages.UserInvalidName);
+                return new ErrorResult(Messages.InvalidName);
             }
             
             isValid = !hasNumber.IsMatch(user.LastName);
             if (!isValid)
             {
-                return new ErrorResult(Messages.UserInvalidName);
+                return new ErrorResult(Messages.UserInvalidNameDigits);
             }
             
             if (string.IsNullOrEmpty(user.LastName) || user.LastName == " ")
             {
-                return new ErrorResult(Messages.UserInvalidName);
+                return new ErrorResult(Messages.InvalidName);
             }
             
             _userDal.Update(user);
@@ -122,7 +122,7 @@ namespace Business.Concrete
 
         public IResult Delete(User user)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
@@ -132,7 +132,7 @@ namespace Business.Concrete
 
         public IDataResult<User> GetUserById(int userId)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<User>(Messages.SystemMaintenance);
             }
@@ -142,7 +142,7 @@ namespace Business.Concrete
 
         public IDataResult<List<User>> GetAllUsers()
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<List<User>>(Messages.SystemMaintenance);
             }
@@ -152,7 +152,7 @@ namespace Business.Concrete
 
         public IDataResult<List<User>> GetUsersByFirstName(string firstName)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<List<User>>(Messages.SystemMaintenance);
             }
@@ -162,7 +162,7 @@ namespace Business.Concrete
 
         public IDataResult<List<User>> GetUsersByLastName(string lastName)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<List<User>>(Messages.SystemMaintenance);
             }
@@ -172,7 +172,7 @@ namespace Business.Concrete
 
         public IDataResult<List<User>> GetUsersByEMail(string eMail)
         {
-            if (DateTime.Now.Hour >= 19)
+            if (DateTime.Now.Hour == 19)
             {
                 return new ErrorDataResult<List<User>>(Messages.SystemMaintenance);
             }

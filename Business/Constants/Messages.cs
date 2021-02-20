@@ -3,6 +3,8 @@
     public static class Messages
     {
         public static string SystemMaintenance => "System is in Maintenance";
+        public static string InvalidName => "Invalid name";
+        
         public static string CarAdded => "Car is successfully Added";
         public static string CarUpdated => "Car is successfully Updated";
         public static string CarDeleted => "Car is successfully Deleted";
@@ -21,13 +23,14 @@
         public static string RentalsListedDetails => "All rentals details are successfully listed";
         public static string RentalsListedCar => "All rentals are successfully listed by car";
         public static string RentalsListedCustomer => "All rentals are successfully listed by customer";
+        public static string RentalsCarInUse => "Car in use";
         
         public static string UserAdded => "User is successfully Added";
         public static string UserUpdated => "User is successfully Updated";
         public static string UserDeleted => "User is successfully Deleted";
         public static string UserInvalidPassword => "Invalid password";
         public static string UserInvalidEMail => "Invalid eMail";
-        public static string UserInvalidName => "Name can not have digits";
+        public static string UserInvalidNameDigits => "Name can not have digits";
         public static string UsersListed => "All users are successfully listed";
         public static string UsersListedFirstName => "All users are successfully listed by first name";
         public static string UsersListedLastName => "All users are successfully listed by last name";
