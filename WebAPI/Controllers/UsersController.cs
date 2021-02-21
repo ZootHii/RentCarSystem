@@ -6,19 +6,19 @@ namespace WebAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CarsController : Controller
+    public class UsersController : Controller
     {
-        private readonly ICarService _carService;
+        private readonly IUserService _userService;
 
-        public CarsController(ICarService carService)
+        public UsersController(IUserService userService)
         {
-            _carService = carService;
+            _userService = userService;
         }
-
+        
         [HttpGet("get/by/id")]
         public IActionResult GetById(int id)
         {
-            var result = _carService.GetCarById(id);
+            var result = _userService.GetUserById(id);
             
             if (result.Success)
             {
@@ -31,7 +31,20 @@ namespace WebAPI.Controllers
         [HttpGet("get/all")]
         public IActionResult GetAll()
         {
-            var result = _carService.GetAllCars();
+            var result = _userService.GetAllUsers();
+            
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
+        [HttpGet("by/email")]
+        public IActionResult GetByEMail(string eMail)
+        {
+            var result = _userService.GetUsersByEMail(eMail);
             
             if (result.Success)
             {
@@ -41,10 +54,23 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         
-        [HttpGet("get/details")]
-        public IActionResult GetDetails()
+        [HttpGet("by/name/first")]
+        public IActionResult GetByFirstName(string firstName)
         {
-            var result = _carService.GetCarDetails();
+            var result = _userService.GetUsersByFirstName(firstName);
+            
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        
+        [HttpGet("by/name/last")]
+        public IActionResult GetByLastName(string lastName)
+        {
+            var result = _userService.GetUsersByLastName(lastName);
             
             if (result.Success)
             {
@@ -55,9 +81,9 @@ namespace WebAPI.Controllers
         }
         
         [HttpPost("add")]
-        public IActionResult Add(Car car)
+        public IActionResult Add(User user)
         {
-            var result = _carService.Add(car);
+            var result = _userService.Add(user);
             
             if (result.Success)
             {
@@ -68,9 +94,9 @@ namespace WebAPI.Controllers
         }
         
         [HttpPost("delete")]
-        public IActionResult Delete(Car car)
+        public IActionResult Delete(User user)
         {
-            var result = _carService.Delete(car);
+            var result = _userService.Delete(user);
             
             if (result.Success)
             {
@@ -81,9 +107,9 @@ namespace WebAPI.Controllers
         }
         
         [HttpPost("update")]
-        public IActionResult Update(Car car)
+        public IActionResult Update(User user)
         {
-            var result = _carService.Update(car);
+            var result = _userService.Update(user);
             
             if (result.Success)
             {

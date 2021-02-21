@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Concrete.DTOs;
@@ -8,10 +11,9 @@ using Entities.Concrete.DTOs;
 namespace Business.Concrete
 {
     // TODO define necessary messages
-    // TODO do all stuff
     public class CustomerManager : ICustomerService
     {
-        private ICustomerDal _customerDal;
+        private readonly ICustomerDal _customerDal;
 
         public CustomerManager(ICustomerDal customerDal)
         {
@@ -20,37 +22,85 @@ namespace Business.Concrete
 
         public IResult Add(Customer customer)
         {
-            throw new System.NotImplementedException();
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorResult(Messages.SystemMaintenance);
+            }
+
+            if (string.IsNullOrEmpty(customer.CompanyName) || customer.CompanyName == " ")
+            {
+                return new ErrorResult(Messages.InvalidName);
+            }
+            
+            _customerDal.Add(customer);
+            return new SuccessResult("added");
         }
 
         public IResult Update(Customer customer)
         {
-            throw new System.NotImplementedException();
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorResult(Messages.SystemMaintenance);
+            }
+
+            if (string.IsNullOrEmpty(customer.CompanyName) || customer.CompanyName == " ")
+            {
+                return new ErrorResult(Messages.InvalidName);
+            }
+            
+            _customerDal.Update(customer);
+            return new SuccessResult("updated");
         }
 
         public IResult Delete(Customer customer)
         {
-            throw new System.NotImplementedException();
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorResult(Messages.SystemMaintenance);
+            }
+            
+            _customerDal.Delete(customer);
+            return new SuccessResult("deleted");
         }
 
         public IDataResult<Customer> GetCustomerById(int customerId)
         {
-            throw new System.NotImplementedException();
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorDataResult<Customer>(Messages.SystemMaintenance);
+            }
+            
+            return new SuccessDataResult<Customer>("get by id",_customerDal.Get(c => c.Id == customerId));
         }
 
         public IDataResult<List<Customer>> GetAllCustomers()
         {
-            throw new System.NotImplementedException();
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorDataResult<List<Customer>>(Messages.SystemMaintenance);
+            }
+            
+            return new SuccessDataResult<List<Customer>>("get all",_customerDal.GetAll());
         }
 
         public IDataResult<List<Customer>> GetCustomersByUserId(int userId)
         {
-            throw new System.NotImplementedException();
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorDataResult<List<Customer>>(Messages.SystemMaintenance);
+            }
+            
+            return new SuccessDataResult<List<Customer>>("all user id",_customerDal.GetAll(c => c.UserId == userId));
         }
 
         public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
         {
-            throw new System.NotImplementedException();
+            if (DateTime.Now.Hour == 19)
+            {
+                return new ErrorDataResult<List<CustomerDetailDto>>(Messages.SystemMaintenance);
+            }
+            
+            return new SuccessDataResult<List<CustomerDetailDto>>("detail",_customerDal.GetCustomerDetails());
         }
     }
 }
