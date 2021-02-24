@@ -8,6 +8,7 @@ namespace Business.DependencyResolvers.Autofac
 {
     public class AutofacBusinessModule : Module
     {
+        // IoC
         // https://autofaccn.readthedocs.io/en/latest/resolve/index.html
         protected override void Load(ContainerBuilder builder)
         {
