@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "v+ERKIS8TEejnrLRauO+ov/ofKzPFZ67aNpNZycqXJ/vHLQLf9F+ag0u1wbOx2ZmO1EbJCSwxrofoWMuqRnu0Q==",
+  "dgSpecHash": "pnmjYGIlNDAsRsvoaxADCGsm1ZeJyENKIB+2ShitxL3vYrTB3ucntLU/renwZd+pR52x+hxPsSALyTTka4vQrw==",
   "success": true,
   "projectFilePath": "C:\\Users\\ahmet\\Desktop\\cs - workspace\\RentCarSystem\\WebAPI\\WebAPI.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ahmet\\.nuget\\packages\\autofac\\6.1.0\\autofac.6.1.0.nupkg.sha512",
+    "C:\\Users\\ahmet\\.nuget\\packages\\autofac.extensions.dependencyinjection\\7.1.0\\autofac.extensions.dependencyinjection.7.1.0.nupkg.sha512",
     "C:\\Users\\ahmet\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\ahmet\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\ahmet\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",

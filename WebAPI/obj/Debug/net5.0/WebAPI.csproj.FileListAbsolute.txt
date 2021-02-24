@@ -65,3 +65,5 @@ C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\obj\Debug\net5.0\WebA
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\obj\Debug\net5.0\ref\WebAPI.dll
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\obj\Debug\net5.0\WebAPI.pdb
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\obj\Debug\net5.0\WebAPI.genruntimeconfig.cache
+C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Autofac.dll
+C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Autofac.Extensions.DependencyInjection.dll
