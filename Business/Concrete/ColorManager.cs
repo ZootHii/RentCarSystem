@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -26,10 +28,12 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.SystemMaintenance);
             }
             
-            if (string.IsNullOrEmpty(color.ColorName) || color.ColorName == " ")
+            /*if (string.IsNullOrEmpty(color.ColorName) || color.ColorName == " ")
             {
                 return new ErrorResult(Messages.InvalidName);
-            }
+            }*/
+            
+            FluentValidationTool.Validate(new ColorValidator(), color);
             
             _colorDal.Add(color);
             return new SuccessResult();
@@ -42,10 +46,12 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.SystemMaintenance);
             }
             
-            if (string.IsNullOrEmpty(color.ColorName) || color.ColorName == " ")
+            /*if (string.IsNullOrEmpty(color.ColorName) || color.ColorName == " ")
             {
                 return new ErrorResult(Messages.InvalidName);
-            }
+            }*/
+            
+            FluentValidationTool.Validate(new ColorValidator(), color);
             
             _colorDal.Update(color);
             return new SuccessResult();

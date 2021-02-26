@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -13,12 +15,12 @@ namespace Business.Concrete
 {
     public class UserManager : IUserService
     {
-        // validation
+        /*// validation
         private readonly Regex hasNumber = new Regex(@"[0-9]+");
         private readonly Regex hasUpperChar = new Regex(@"[A-Z]+");
         private readonly Regex hasMinimum4Chars = new Regex(@".{4,}");
         private readonly EmailAddressAttribute emailAddressAttribute = new EmailAddressAttribute();
-        private bool isValid;
+        private bool isValid;*/
         
         // injection
         private readonly IUserDal _userDal;
@@ -35,41 +37,43 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.SystemMaintenance);
             }
 
-            isValid = emailAddressAttribute.IsValid(user.EMail);
+            /*isValid = emailAddressAttribute.IsValid(user.EMail);
             if (!isValid)
             {
                 return new ErrorResult(Messages.UserInvalidEMail);
-            }
+            }*/
             
-            isValid = hasNumber.IsMatch(user.Password) 
+            /*isValid = hasNumber.IsMatch(user.Password) 
                       && hasUpperChar.IsMatch(user.Password) 
                       && hasMinimum4Chars.IsMatch(user.Password);
             if (!isValid)
             {
                 return new ErrorResult(Messages.UserInvalidPassword);
-            }
+            }*/
 
-            isValid = !hasNumber.IsMatch(user.FirstName);
+            /*isValid = !hasNumber.IsMatch(user.FirstName);
             if (!isValid)
             {
                 return new ErrorResult(Messages.UserInvalidNameDigits);
-            }
+            }*/
 
-            if (string.IsNullOrEmpty(user.FirstName) || user.FirstName == " ")
+            /*if (string.IsNullOrEmpty(user.FirstName) || user.FirstName == " ")
             {
                 return new ErrorResult(Messages.InvalidName);
-            }
+            }*/
 
-            isValid = !hasNumber.IsMatch(user.LastName);
+            /*isValid = !hasNumber.IsMatch(user.LastName);
             if (!isValid)
             {
                 return new ErrorResult(Messages.UserInvalidNameDigits);
-            }
+            }*/
             
-            if (string.IsNullOrEmpty(user.LastName) || user.LastName == " ")
+            /*if (string.IsNullOrEmpty(user.LastName) || user.LastName == " ")
             {
                 return new ErrorResult(Messages.InvalidName);
-            }
+            }*/
+            
+            FluentValidationTool.Validate(new UserValidator(), user);
             
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
@@ -82,7 +86,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.SystemMaintenance);
             }
 
-            isValid = emailAddressAttribute.IsValid(user.EMail);
+            /*isValid = emailAddressAttribute.IsValid(user.EMail);
             if (!isValid)
             {
                 return new ErrorResult(Messages.UserInvalidEMail);
@@ -114,7 +118,9 @@ namespace Business.Concrete
             if (string.IsNullOrEmpty(user.LastName) || user.LastName == " ")
             {
                 return new ErrorResult(Messages.InvalidName);
-            }
+            }*/
+            
+            FluentValidationTool.Validate(new UserValidator(), user);
             
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);

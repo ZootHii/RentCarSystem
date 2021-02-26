@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "bRM5AMTphmpKULA3+J5YFjGpYJt5R4DXOx6F4lKu97zoT/zzDd7jVziXnCXC72xYzIXbZza5CgYh+PoPpSczog==",
+  "dgSpecHash": "RbRX+DXeH6pAtdYvrmFWWJ6xqZnlT25LeT4ELvV+x7iXU8Ro8ML8AwOqeWqv/Qx6v1/hmWsYseIvnQQjoC6VvA==",
   "success": true,
   "projectFilePath": "C:\\Users\\ahmet\\Desktop\\cs - workspace\\RentCarSystem\\ConsoleUI\\ConsoleUI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ahmet\\.nuget\\packages\\autofac\\6.1.0\\autofac.6.1.0.nupkg.sha512",
+    "C:\\Users\\ahmet\\.nuget\\packages\\fluentvalidation\\9.5.1\\fluentvalidation.9.5.1.nupkg.sha512",
     "C:\\Users\\ahmet\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\ahmet\\.nuget\\packages\\microsoft.data.sqlclient\\2.0.1\\microsoft.data.sqlclient.2.0.1.nupkg.sha512",
     "C:\\Users\\ahmet\\.nuget\\packages\\microsoft.data.sqlclient.sni.runtime\\2.0.1\\microsoft.data.sqlclient.sni.runtime.2.0.1.nupkg.sha512",

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -26,10 +28,12 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.SystemMaintenance);
             }
             
-            if (string.IsNullOrEmpty(brand.BrandName) || brand.BrandName == " ")
+            /*if (string.IsNullOrEmpty(brand.BrandName) || brand.BrandName == " ")
             {
                 return new ErrorResult(Messages.InvalidName);
-            }
+            }*/
+            
+            FluentValidationTool.Validate(new BrandValidator(), brand);
             
             _brandDal.Add(brand);
             return new SuccessResult();
@@ -42,11 +46,13 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.SystemMaintenance);
             }
             
-            if (string.IsNullOrEmpty(brand.BrandName) || brand.BrandName == " ")
+            /*if (string.IsNullOrEmpty(brand.BrandName) || brand.BrandName == " ")
             {
                 return new ErrorResult(Messages.InvalidName);
-            }
+            }*/
             
+            FluentValidationTool.Validate(new BrandValidator(), brand);
+
             _brandDal.Update(brand);
             return new SuccessResult();
         }

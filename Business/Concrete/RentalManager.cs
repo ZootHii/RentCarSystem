@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -21,39 +23,28 @@ namespace Business.Concrete
 
         public IResult Add(Rental rental)
         {
-            // TODO bunu yeni bir liste oluşturup kullanılabilir olanları orada tutup o şekilde kullanıcıya sadece onu gösterebilirim
-            var allRentals = GetAllRentals();
-            if (allRentals.Success)
+            var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && (r.ReturnDate == null || r.ReturnDate >= DateTime.Now));
+    
+            if (result.Count != 0)
             {
-                foreach (var checkRental in allRentals.Data)
-                {
-                    if (rental.CarId == checkRental.CarId) // if this car in rentals check the return date
-                    {
-                        if (checkRental.ReturnDate == null || checkRental.ReturnDate >= DateTime.Now)
-                        {
-                            return new ErrorResult(Messages.RentalsCarInUse);
-                        }
-                    }
-                }
+                return new ErrorResult(Messages.RentalsCarInUse);
             }
-            else
-            {
-                return new ErrorResult(allRentals.Message);
-            }
-
+            
             if (DateTime.Now.Hour == 19)
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
 
-            if (rental.ReturnDate != null)
+            /*if (rental.ReturnDate != null)
             {
                 var dateTime = rental.ReturnDate - rental.RentDate;
                 if (dateTime < new TimeSpan(02,00,00))
                 {
                     return new ErrorResult(Messages.RentalInvalidReturnDate);
                 }
-            }
+            }*/
+            
+            FluentValidationTool.Validate(new RentalValidator(), rental);
             
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
@@ -66,14 +57,16 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.SystemMaintenance);
             }
 
-            if (rental.ReturnDate != null)
+            /*if (rental.ReturnDate != null)
             {
                 var dateTime = rental.ReturnDate - rental.RentDate;
                 if (dateTime < new TimeSpan(02,00,00))
                 {
                     return new ErrorResult(Messages.RentalInvalidReturnDate);
                 }
-            }
+            }*/
+            
+            FluentValidationTool.Validate(new RentalValidator(), rental);
             
             _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);

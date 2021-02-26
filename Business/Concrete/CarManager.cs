@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -26,7 +28,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.SystemMaintenance);
             }
             
-            if (car.ModelYear.Year <= 1999)
+            /*if (car.ModelYear.Year <= 1999)
             {
                 return new ErrorResult(Messages.CarInvalidModelYear);
             }
@@ -34,7 +36,9 @@ namespace Business.Concrete
             if (car.DailyPrice <= 0)
             {
                 return new ErrorResult(Messages.CarInvalidDailyPrice);
-            }
+            }*/
+            
+            FluentValidationTool.Validate(new CarValidator(), car);
 
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
@@ -47,7 +51,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.SystemMaintenance);
             }
             
-            if (car.ModelYear.Year <= 1999)
+            /*if (car.ModelYear.Year <= 1999)
             {
                 return new ErrorResult(Messages.CarInvalidModelYear);
             }
@@ -55,7 +59,9 @@ namespace Business.Concrete
             if (car.DailyPrice <= 0)
             {
                 return new ErrorResult(Messages.CarInvalidDailyPrice);
-            }
+            }*/
+            
+            FluentValidationTool.Validate(new CarValidator(), car);
             
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
