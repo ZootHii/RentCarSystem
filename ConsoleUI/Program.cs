@@ -16,7 +16,7 @@ namespace ConsoleUI
             //Test1();
             //Test2();
             //Test3();
-            //Test4();
+            Test4();
             //Test5AddUser();
             //Test6GetUser();
             //Test7Rent();
@@ -54,10 +54,10 @@ namespace ConsoleUI
 
             var rental2 = new Rental
             {
-                CarId = 3,
+                CarId = 4,
                 CustomerId = 1,
-                RentDate = DateTime.Now - new TimeSpan(3,0,0),
-                ReturnDate = DateTime.Now + new TimeSpan(0, 14, 0)
+                RentDate = DateTime.Now,
+                ReturnDate = DateTime.Now + new TimeSpan(2,0,0)
             };
 
             var result = rentalManager.Add(rental2);
@@ -123,7 +123,7 @@ namespace ConsoleUI
             {
                 FirstName = "Ahmet",
                 LastName = "Yıldırım",
-                EMail = "ahmet.zoothii@gmail.com",
+                EMail = "ahmet.zoothii1@gmail.com",
                 Password = "Ahmet123"
             };
             var user2 = new User
@@ -305,7 +305,7 @@ namespace ConsoleUI
             }
 
             Console.WriteLine("-----ADD CAR-----");
-            var resultAdd = carManager.Add(new Car
+            /*var resultAdd = carManager.Add(new Car
                 {BrandId = 3, ColorId = 5, ModelYear = new DateTime(1777, 01, 01), DailyPrice = 300.0M, Description = "Boş"});
             if (resultAdd.Success)
             {
@@ -314,7 +314,7 @@ namespace ConsoleUI
             else
             {
                 Console.WriteLine(resultAdd.Message);
-            }
+            }*/
 
             var resultAdd2 = carManager.Add(new Car
                 {BrandId = 3, ColorId = 5, ModelYear = new DateTime(2000, 01, 01), DailyPrice = 0M, Description = "Boş"});
@@ -369,7 +369,7 @@ namespace ConsoleUI
             Console.WriteLine(carManager.GetCarById(4).ToString());
             
             Console.WriteLine("-----ADD CAR-----");
-            carManager.Add(new Car{BrandId = 3, ColorId = 5, ModelYear = new DateTime(1777, 01, 01), DailyPrice = 300.0M, Description = "Boş"});
+            //carManager.Add(new Car{BrandId = 3, ColorId = 5, ModelYear = new DateTime(1777, 01, 01), DailyPrice = 300.0M, Description = "Boş"});
             carManager.Add(new Car{BrandId = 3, ColorId = 5, ModelYear = new DateTime(2000, 01, 01), DailyPrice = 0M, Description = "Boş"});
             // it works don't add again //carManager.Add(new Car{BrandId = 3, ColorId = 5, ModelYear = new DateTime(2005, 01, 01), DailyPrice = 300.0M, Description = "Boş"});
             foreach (var car in carManager.GetAllCars().Data)

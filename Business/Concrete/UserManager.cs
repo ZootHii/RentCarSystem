@@ -30,6 +30,7 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
+        // TODO check is e mail in use
         public IResult Add(User user)
         {
             if (DateTime.Now.Hour == 19)

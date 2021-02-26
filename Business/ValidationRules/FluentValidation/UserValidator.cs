@@ -13,7 +13,7 @@ namespace Business.ValidationRules.FluentValidation
         
         public UserValidator()
         {
-            RuleFor(user => user.Id).NotEmpty();
+            //RuleFor(user => user.Id).NotEmpty();
             RuleFor(user => user.EMail).NotEmpty().WithMessage(Messages.UserInvalidEMail);
             RuleFor(user => user.EMail).EmailAddress().WithMessage(Messages.UserInvalidEMail);
             RuleFor(user => user.Password).NotEmpty().WithMessage(Messages.UserInvalidPassword);
@@ -34,7 +34,7 @@ namespace Business.ValidationRules.FluentValidation
 
         public bool Name(string name)
         {
-            bool isValid = hasNumber.IsMatch(name);
+            bool isValid = !hasNumber.IsMatch(name);
             return isValid;
         }
         
