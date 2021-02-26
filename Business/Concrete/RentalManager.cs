@@ -43,6 +43,11 @@ namespace Business.Concrete
                     return new ErrorResult(Messages.RentalInvalidReturnDate);
                 }
             }*/
+
+            /*if (rental.RentDate < DateTime.Now)
+            {
+                return new ErrorResult();
+            }*/
             
             FluentValidationTool.Validate(new RentalValidator(), rental);
             

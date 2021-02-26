@@ -1,4 +1,5 @@
 ﻿using System;
+using Business.Constants;
 using Entities.Concrete;
 using FluentValidation;
 
@@ -11,8 +12,9 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(rental => rental.Id).NotEmpty();
             RuleFor(rental => rental.CarId).NotEmpty();
             RuleFor(rental => rental.CustomerId).NotEmpty();
-            RuleFor(rental => rental.RentDate).NotEmpty();
-            RuleFor(rental => rental.ReturnDate - rental.RentDate).Must(AtLeast2Hours);
+            RuleFor(rental => rental.RentDate).NotEmpty().WithMessage(Messages.RentalInvalidRentDate);;
+            RuleFor(rental => rental.RentDate).GreaterThanOrEqualTo(DateTime.Now).WithMessage(Messages.RentalInvalidRentDate);
+            RuleFor(rental => rental.ReturnDate - rental.RentDate).Must(AtLeast2Hours).WithMessage(Messages.RentalInvalidReturnDate);
         }
 
         private bool AtLeast2Hours(TimeSpan? dateTime)

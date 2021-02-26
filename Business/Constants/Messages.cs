@@ -18,6 +18,7 @@
         public static string RentalAdded => "Rental is successfully Added";
         public static string RentalUpdated => "Rental is successfully Updated";
         public static string RentalDeleted => "Rental is successfully Deleted";
+        public static string RentalInvalidRentDate => "Invalid rent date";
         public static string RentalInvalidReturnDate => "Return date must be at least 2 hours more than rental date";
         public static string RentalsListed => "All rentals are successfully listed";
         public static string RentalsListedDetails => "All rentals details are successfully listed";
