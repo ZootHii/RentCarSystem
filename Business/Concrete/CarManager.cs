@@ -30,18 +30,6 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
-            
-            /*if (car.ModelYear.Year <= 1999)
-            {
-                return new ErrorResult(Messages.CarInvalidModelYear);
-            }
-
-            if (car.DailyPrice <= 0)
-            {
-                return new ErrorResult(Messages.CarInvalidDailyPrice);
-            }*/
-            
-            //ValidationTool.Validate(new CarValidator(), car); done with AOP attribute
 
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
@@ -54,18 +42,6 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
-            
-            /*if (car.ModelYear.Year <= 1999)
-            {
-                return new ErrorResult(Messages.CarInvalidModelYear);
-            }
-
-            if (car.DailyPrice <= 0)
-            {
-                return new ErrorResult(Messages.CarInvalidDailyPrice);
-            }*/
-            
-            //ValidationTool.Validate(new CarValidator(), car); done with AOP
             
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);

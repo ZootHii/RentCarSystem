@@ -38,22 +38,6 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.SystemMaintenance);
             }
 
-            /*if (rental.ReturnDate != null)
-            {
-                var dateTime = rental.ReturnDate - rental.RentDate;
-                if (dateTime < new TimeSpan(02,00,00))
-                {
-                    return new ErrorResult(Messages.RentalInvalidReturnDate);
-                }
-            }*/
-
-            /*if (rental.RentDate < DateTime.Now)
-            {
-                return new ErrorResult();
-            }*/
-            
-            //ValidationTool.Validate(new RentalValidator(), rental);
-            
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
@@ -66,17 +50,6 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.SystemMaintenance);
             }
 
-            /*if (rental.ReturnDate != null)
-            {
-                var dateTime = rental.ReturnDate - rental.RentDate;
-                if (dateTime < new TimeSpan(02,00,00))
-                {
-                    return new ErrorResult(Messages.RentalInvalidReturnDate);
-                }
-            }*/
-            
-            //ValidationTool.Validate(new RentalValidator(), rental);
-            
             _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
         }

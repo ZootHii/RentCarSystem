@@ -28,14 +28,7 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
-            
-            /*if (string.IsNullOrEmpty(brand.BrandName) || brand.BrandName == " ")
-            {
-                return new ErrorResult(Messages.InvalidName);
-            }*/
-            
-            //ValidationTool.Validate(new BrandValidator(), brand);
-            
+
             _brandDal.Add(brand);
             return new SuccessResult();
         }
@@ -47,13 +40,6 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
-            
-            /*if (string.IsNullOrEmpty(brand.BrandName) || brand.BrandName == " ")
-            {
-                return new ErrorResult(Messages.InvalidName);
-            }*/
-            
-            //ValidationTool.Validate(new BrandValidator(), brand);
 
             _brandDal.Update(brand);
             return new SuccessResult();

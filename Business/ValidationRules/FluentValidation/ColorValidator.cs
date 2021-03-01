@@ -8,7 +8,6 @@ namespace Business.ValidationRules.FluentValidation
     {
         public ColorValidator()
         {
-            //RuleFor(color => color.Id).NotEmpty();
             RuleFor(color => color.ColorName).NotEmpty().WithMessage(Messages.InvalidName);
         }
     }

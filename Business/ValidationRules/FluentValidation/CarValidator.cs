@@ -8,7 +8,6 @@ namespace Business.ValidationRules.FluentValidation
     {
         public CarValidator()
         {
-            //RuleFor(car => car.Id).NotEmpty();
             RuleFor(car => car.BrandId).NotEmpty();
             RuleFor(car => car.ColorId).NotEmpty();
             RuleFor(car => car.ModelYear.Year).NotEmpty();

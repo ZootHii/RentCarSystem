@@ -10,7 +10,6 @@ namespace Business.ValidationRules.FluentValidation
         private readonly DateTime now = DateTime.Now;
         public RentalValidator()
         {
-            //RuleFor(rental => rental.Id).NotEmpty();
             RuleFor(rental => rental.CarId).NotEmpty();
             RuleFor(rental => rental.CustomerId).NotEmpty();
             RuleFor(rental => rental.RentDate).NotEmpty().WithMessage(Messages.RentalInvalidRentDate);

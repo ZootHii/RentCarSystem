@@ -30,14 +30,7 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
-            
-            /*if (string.IsNullOrEmpty(color.ColorName) || color.ColorName == " ")
-            {
-                return new ErrorResult(Messages.InvalidName);
-            }*/
-            
-            //ValidationTool.Validate(new ColorValidator(), color);
-            
+
             _colorDal.Add(color);
             return new SuccessResult();
         }
@@ -49,13 +42,6 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
-            
-            /*if (string.IsNullOrEmpty(color.ColorName) || color.ColorName == " ")
-            {
-                return new ErrorResult(Messages.InvalidName);
-            }*/
-            
-            //ValidationTool.Validate(new ColorValidator(), color);
             
             _colorDal.Update(color);
             return new SuccessResult();

@@ -31,13 +31,6 @@ namespace Business.Concrete
             {
                 return new ErrorResult(Messages.SystemMaintenance);
             }
-
-            /*if (string.IsNullOrEmpty(customer.CompanyName) || customer.CompanyName == " ")
-            {
-                return new ErrorResult(Messages.InvalidName);
-            }*/
-            
-            //ValidationTool.Validate(new CustomerValidator(), customer);
             
             _customerDal.Add(customer);
             return new SuccessResult("added");
@@ -51,13 +44,6 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.SystemMaintenance);
             }
 
-            /*if (string.IsNullOrEmpty(customer.CompanyName) || customer.CompanyName == " ")
-            {
-                return new ErrorResult(Messages.InvalidName);
-            }*/
-            
-            //ValidationTool.Validate(new CustomerValidator(), customer);
-            
             _customerDal.Update(customer);
             return new SuccessResult("updated");
         }
