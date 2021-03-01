@@ -68,3 +68,7 @@ C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\obj\Debug\net5.0\WebA
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Autofac.dll
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Autofac.Extensions.DependencyInjection.dll
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\FluentValidation.dll
+C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Autofac.Extras.DynamicProxy.dll
+C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Castle.Core.dll
+C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\System.IO.Pipelines.dll

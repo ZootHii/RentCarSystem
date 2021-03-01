@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation.FluentValidation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -21,6 +23,7 @@ namespace Business.Concrete
             _carDal = carDal;
         }
         
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
             if (DateTime.Now.Hour == 19)
@@ -38,12 +41,13 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.CarInvalidDailyPrice);
             }*/
             
-            FluentValidationTool.Validate(new CarValidator(), car);
+            //ValidationTool.Validate(new CarValidator(), car); done with AOP attribute
 
             _carDal.Add(car);
             return new SuccessResult(Messages.CarAdded);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
             if (DateTime.Now.Hour == 19)
@@ -61,7 +65,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.CarInvalidDailyPrice);
             }*/
             
-            FluentValidationTool.Validate(new CarValidator(), car);
+            //ValidationTool.Validate(new CarValidator(), car); done with AOP
             
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);

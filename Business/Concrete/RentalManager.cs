@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation.FluentValidation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -21,6 +23,7 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Add(Rental rental)
         {
             var result = _rentalDal.GetAll(r => r.CarId == rental.CarId && (r.ReturnDate == null || r.ReturnDate >= DateTime.Now));
@@ -49,12 +52,13 @@ namespace Business.Concrete
                 return new ErrorResult();
             }*/
             
-            FluentValidationTool.Validate(new RentalValidator(), rental);
+            //ValidationTool.Validate(new RentalValidator(), rental);
             
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
         public IResult Update(Rental rental)
         {
             if (DateTime.Now.Hour == 19)
@@ -71,7 +75,7 @@ namespace Business.Concrete
                 }
             }*/
             
-            FluentValidationTool.Validate(new RentalValidator(), rental);
+            //ValidationTool.Validate(new RentalValidator(), rental);
             
             _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);

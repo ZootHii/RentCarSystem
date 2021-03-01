@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 
-namespace Core.CrossCuttingConcerns.Validation
+namespace Core.CrossCuttingConcerns.Validation.FluentValidation
 {
-    public class FluentValidationTool
+    public static class ValidationTool
     {
         public static void Validate(IValidator validator, object entity)
         {

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation.FluentValidation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -21,6 +23,7 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color color)
         {
             if (DateTime.Now.Hour == 19)
@@ -33,12 +36,13 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.InvalidName);
             }*/
             
-            FluentValidationTool.Validate(new ColorValidator(), color);
+            //ValidationTool.Validate(new ColorValidator(), color);
             
             _colorDal.Add(color);
             return new SuccessResult();
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Update(Color color)
         {
             if (DateTime.Now.Hour == 19)
@@ -51,7 +55,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.InvalidName);
             }*/
             
-            FluentValidationTool.Validate(new ColorValidator(), color);
+            //ValidationTool.Validate(new ColorValidator(), color);
             
             _colorDal.Update(color);
             return new SuccessResult();

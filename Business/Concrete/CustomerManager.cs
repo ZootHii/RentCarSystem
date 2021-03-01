@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation.FluentValidation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -22,6 +24,7 @@ namespace Business.Concrete
             _customerDal = customerDal;
         }
 
+        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
             if (DateTime.Now.Hour == 19)
@@ -34,12 +37,13 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.InvalidName);
             }*/
             
-            FluentValidationTool.Validate(new CustomerValidator(), customer);
+            //ValidationTool.Validate(new CustomerValidator(), customer);
             
             _customerDal.Add(customer);
             return new SuccessResult("added");
         }
 
+        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Update(Customer customer)
         {
             if (DateTime.Now.Hour == 19)
@@ -52,7 +56,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.InvalidName);
             }*/
             
-            FluentValidationTool.Validate(new CustomerValidator(), customer);
+            //ValidationTool.Validate(new CustomerValidator(), customer);
             
             _customerDal.Update(customer);
             return new SuccessResult("updated");

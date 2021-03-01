@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
-using Core.CrossCuttingConcerns.Validation;
+using Core.Aspects.Autofac.Validation.FluentValidation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -21,6 +21,7 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Add(Brand brand)
         {
             if (DateTime.Now.Hour == 19)
@@ -33,12 +34,13 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.InvalidName);
             }*/
             
-            FluentValidationTool.Validate(new BrandValidator(), brand);
+            //ValidationTool.Validate(new BrandValidator(), brand);
             
             _brandDal.Add(brand);
             return new SuccessResult();
         }
 
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
             if (DateTime.Now.Hour == 19)
@@ -51,7 +53,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.InvalidName);
             }*/
             
-            FluentValidationTool.Validate(new BrandValidator(), brand);
+            //ValidationTool.Validate(new BrandValidator(), brand);
 
             _brandDal.Update(brand);
             return new SuccessResult();
