@@ -25,31 +25,46 @@ namespace WebAPI.Controllers
         {
             _carImageService = carImageService;
         }
-
-        [HttpGet("get/by/id")]
-        public IActionResult GetById(int id)
-        {
-            var result = _carImageService.GetCarImageById(id);
-            string filePath = $@"{"Images"}\{"Get"}\{result.Data.ImageName}";
-            System.IO.File.WriteAllBytes(filePath, result.Data.ImagePath);
-            if (result.Success)
-            {
-                return Ok();
-            }
-
-            return BadRequest();
-        }
         
-        [HttpPost("add")]
-        public IActionResult Add([FromForm] CarImage carImage, IFormFile imageFile)
+        [HttpGet("get/by/id")]
+        public async Task<IActionResult> GetById(int id)
         {
-            var result = _carImageService.Add(carImage, imageFile);
-            
-            if (result.Result.Success)
+            var result = await _carImageService.GetCarImageById(id);
+
+            if (result.Success)
             {
                 return Ok(result);
             }
 
+            return BadRequest(result);
+        }
+        /*
+         Send nothing for id
+         Send empty for others
+         */
+        [HttpPost("add")]
+        public async Task<IActionResult> Add([FromForm] CarImage carImage, IFormFile imageFile)
+        {
+            var result = await _carImageService.Add(carImage, imageFile);
+            
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+        
+            return BadRequest(result);
+        }
+        
+        [HttpPost("update")]
+        public async Task<IActionResult> Update([FromForm] CarImage carImage, IFormFile imageFile)
+        {
+            var result = await _carImageService.Update(carImage, imageFile);
+            
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+        
             return BadRequest(result);
         }
     }

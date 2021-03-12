@@ -36,5 +36,7 @@
         public static string UsersListedFirstName => "All users are successfully listed by first name";
         public static string UsersListedLastName => "All users are successfully listed by last name";
         public static string UsersListedEMail => "All users are successfully listed by eMail";
+        public static string UserEMailInUse => "eMail is already in use";
+        public static string InvalidFileExtension => "File extension must be JPG, JPEG or PNG";
     }
 }

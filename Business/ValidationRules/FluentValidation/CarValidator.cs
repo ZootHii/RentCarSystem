@@ -4,6 +4,7 @@ using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
 {
+    // TODO 1999 kuralı validation a giriyor mu ?
     public class CarValidator : AbstractValidator<Car>
     {
         public CarValidator()

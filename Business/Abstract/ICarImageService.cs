@@ -9,9 +9,9 @@ namespace Business.Abstract
     public interface ICarImageService
     {
         public Task<IResult> Add(CarImage carImage, IFormFile imageFile);
-        public IResult Update(CarImage carImage);
+        public Task<IResult> Update(CarImage carImage, IFormFile imageFile);
         public IResult Delete(CarImage carImage);
-        public IDataResult<CarImage> GetCarImageById(int carImageId);
+        public Task<IDataResult<CarImage>> GetCarImageById(int carImageId);
         public IDataResult<List<CarImage>> GetAllCarImages();
         public IDataResult<List<CarImage>> GetCarImagesByCarId(int carId);
     }

@@ -72,7 +72,7 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<List<Brand>>(Messages.SystemMaintenance);
             }
-
+            
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
     }

@@ -5,6 +5,7 @@ using FluentValidation;
 
 namespace Business.ValidationRules.FluentValidation
 {
+    // TODO 2 saat kuralı validation a giriyor mu ?
     public class RentalValidator : AbstractValidator<Rental>
     {
         private readonly DateTime now = DateTime.Now;
@@ -14,10 +15,10 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(rental => rental.CustomerId).NotEmpty();
             RuleFor(rental => rental.RentDate).NotEmpty().WithMessage(Messages.RentalInvalidRentDate);
             RuleFor(rental => rental.RentDate).GreaterThanOrEqualTo(now.AddSeconds(-now.Second)).WithMessage(Messages.RentalInvalidRentDate);
-            RuleFor(rental => rental.ReturnDate - rental.RentDate).Must(AtLeast2Hours).WithMessage(Messages.RentalInvalidReturnDate);
+            //RuleFor(rental => rental.ReturnDate - rental.RentDate).Must(AtLeast2Hours).WithMessage(Messages.RentalInvalidReturnDate);
         }
 
-        private bool AtLeast2Hours(TimeSpan? dateTime)
+        /*private bool AtLeast2Hours(TimeSpan? dateTime)
         {
             bool isValid;
             if (dateTime == null)
@@ -33,6 +34,6 @@ namespace Business.ValidationRules.FluentValidation
                 isValid = false;
             }
             return isValid;
-        }
+        }*/
     }
 }
