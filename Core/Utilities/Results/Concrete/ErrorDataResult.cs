@@ -11,11 +11,11 @@ namespace Core.Utilities.Results.Concrete
         public ErrorDataResult(T data) : base(false, data)
         {
         }
-        
+
         public ErrorDataResult(string message) : base(false, message, default)
         {
         }
-        
+
         public ErrorDataResult() : base(false, default)
         {
         }

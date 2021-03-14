@@ -1,17 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Net.Http;
-using System.Net.Mime;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Business.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Net.Http.Headers;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 
 namespace WebAPI.Controllers
 {
@@ -25,7 +16,7 @@ namespace WebAPI.Controllers
         {
             _carImageService = carImageService;
         }
-        
+
         [HttpGet("get/by/id")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -38,6 +29,20 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+
+        [HttpGet("get/by/car/id")]
+        public IActionResult GetByCarId(int carId)
+        {
+            var result = _carImageService.GetCarImagesByCarId(carId);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+
         /*
          Send nothing for id
          Send empty for others
@@ -46,25 +51,25 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Add([FromForm] CarImage carImage, IFormFile imageFile)
         {
             var result = await _carImageService.Add(carImage, imageFile);
-            
+
             if (result.Success)
             {
                 return Ok(result);
             }
-        
+
             return BadRequest(result);
         }
-        
+
         [HttpPost("update")]
         public async Task<IActionResult> Update([FromForm] CarImage carImage, IFormFile imageFile)
         {
             var result = await _carImageService.Update(carImage, imageFile);
-            
+
             if (result.Success)
             {
                 return Ok(result);
             }
-        
+
             return BadRequest(result);
         }
     }

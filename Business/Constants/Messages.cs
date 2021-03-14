@@ -4,7 +4,7 @@
     {
         public static string SystemMaintenance => "System is in Maintenance";
         public static string InvalidName => "Invalid name";
-        
+
         public static string CarAdded => "Car is successfully Added";
         public static string CarUpdated => "Car is successfully Updated";
         public static string CarDeleted => "Car is successfully Deleted";
@@ -14,7 +14,7 @@
         public static string CarsListedDetails => "All cars details are successfully listed";
         public static string CarsListedBrand => "All cars are successfully listed by brand";
         public static string CarsListedColor => "All cars are successfully listed by color";
-        
+
         public static string RentalAdded => "Rental is successfully Added";
         public static string RentalUpdated => "Rental is successfully Updated";
         public static string RentalDeleted => "Rental is successfully Deleted";
@@ -25,7 +25,7 @@
         public static string RentalsListedCar => "All rentals are successfully listed by car";
         public static string RentalsListedCustomer => "All rentals are successfully listed by customer";
         public static string RentalsCarInUse => "Car in use";
-        
+
         public static string UserAdded => "User is successfully Added";
         public static string UserUpdated => "User is successfully Updated";
         public static string UserDeleted => "User is successfully Deleted";
@@ -38,5 +38,8 @@
         public static string UsersListedEMail => "All users are successfully listed by eMail";
         public static string UserEMailInUse => "eMail is already in use";
         public static string InvalidFileExtension => "File extension must be JPG, JPEG or PNG";
+        public static string NullFileError => "Image File must not be null";
+        public static string CarHasNoImage => "There is no image for this car";
+        public static string CarReachedMaxImageCount => "Car has reached max image (5)";
     }
 }

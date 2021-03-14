@@ -10,7 +10,7 @@ namespace Business.ValidationRules.FluentValidation
         private readonly Regex hasNumber = new Regex(@"[0-9]+");
         private readonly Regex hasUpperChar = new Regex(@"[A-Z]+");
         private readonly Regex hasMinimum4Chars = new Regex(@".{4,}");
-        
+
         public UserValidator()
         {
             RuleFor(user => user.EMail).NotEmpty().WithMessage(Messages.UserInvalidEMail);
@@ -36,6 +36,5 @@ namespace Business.ValidationRules.FluentValidation
             bool isValid = !hasNumber.IsMatch(name);
             return isValid;
         }
-        
     }
 }

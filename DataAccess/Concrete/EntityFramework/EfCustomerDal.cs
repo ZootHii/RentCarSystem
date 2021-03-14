@@ -13,7 +13,7 @@ namespace DataAccess.Concrete.EntityFramework
         {
             using (var context = new CarRentalContext())
             {
-                var result = 
+                var result =
                     from customer in context.Customers
                     join user in context.Users on customer.UserId equals user.Id
                     select new CustomerDetailDto

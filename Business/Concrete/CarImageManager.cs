@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Constants;
@@ -28,27 +27,18 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarImageValidator))]
         public async Task<IResult> Add(CarImage carImage, IFormFile imageFile)
         {
-            var result = BusinessRules.Run(CheckIfFormFileIsImageOrNull(imageFile));
+            var result = BusinessRules.Run(CheckIfFormFileIsImageOrNull(imageFile),
+                CheckIfCarReachedMaxImageCount(carImage.CarId));
             if (result != null)
             {
                 return result;
             }
-            
-            if (imageFile != null)
-            {
-                carImage.ImageName = FileHelper.CreateImageNameWithExtension(imageFile);
-                carImage.UploadDate = DateTime.Now;
-                carImage.ImagePath = await FileHelper.ConvertFormFileToByteArray(imageFile);
-                _carImageDal.Add(carImage);
-                await FileHelper.WriteFormFileToImagesPost(imageFile, carImage.ImageName);
-            }
-            else
-            {
-                carImage.ImageName = FileHelper.defaultImageName;
-                carImage.UploadDate = DateTime.Now;
-                carImage.ImagePath = FileHelper.GetDefaultImage();
-                _carImageDal.Add(carImage);
-            }
+
+            carImage.ImageName = FileHelper.CreateImageNameWithExtension(imageFile);
+            carImage.UploadDate = DateTime.Now;
+            carImage.ImagePath = await FileHelper.ConvertFormFileToByteArray(imageFile);
+            _carImageDal.Add(carImage);
+            await FileHelper.WriteFormFileToImagesPost(imageFile, carImage.ImageName);
 
             return new SuccessResult();
         }
@@ -58,6 +48,7 @@ namespace Business.Concrete
         {
             // TODO update ederken eski fotoğrafı mı kullanacak, yeni fotoğrafı mı, yoksa hiç bir fotoğraf mı.
             // TODO sanırım update te eskisini koymak daha mantıklı logo koymak yerine
+            // TODO eski fotoğrafı post ve get kısmından sil
             var toUpdateCarImageResult = _carImageDal.Get(image => image.Id == carImage.Id);
             carImage.UploadDate = toUpdateCarImageResult.UploadDate;
             if (imageFile != null)
@@ -83,40 +74,52 @@ namespace Business.Concrete
 
         public IResult Delete(CarImage carImage)
         {
+            // TODO
             throw new System.NotImplementedException();
         }
 
         public async Task<IDataResult<CarImage>> GetCarImageById(int carImageId)
         {
+            //TODO CheckIfCarImageExists
             var dataResult = new SuccessDataResult<CarImage>(_carImageDal.Get(image => image.Id == carImageId));
 
-            if (dataResult.Data.ImageName != "logo.jpeg")
-            {
-                await FileHelper.WriteImageBytesToImagesGet(dataResult.Data.ImagePath, dataResult.Data.ImageName);
-
-            }
+            await FileHelper.WriteImageBytesToImagesGet(dataResult.Data.ImagePath, dataResult.Data.ImageName);
 
             return dataResult;
         }
 
         public IDataResult<List<CarImage>> GetAllCarImages()
         {
+            // todo çok kasacak pc yi büyük boyutlu dosyalarda o yüzden ilerde küçültme işlemi yap max boyut belirle
             throw new System.NotImplementedException();
         }
 
         public IDataResult<List<CarImage>> GetCarImagesByCarId(int carId)
         {
-            throw new System.NotImplementedException();
+            var result = BusinessRules.Run(CheckIfCarHasImages(carId));
+            return result;
         }
 
         #region Rules
+
+        private IResult CheckIfCarReachedMaxImageCount(int carId)
+        {
+            var result = _carImageDal.GetAll(image => image.CarId == carId).Count;
+            if (result >= 5)
+            {
+                return new ErrorResult(Messages.CarReachedMaxImageCount);
+            }
+
+            return new SuccessResult();
+        }
 
         private IResult CheckIfFormFileIsImageOrNull(IFormFile formFile)
         {
             if (formFile == null)
             {
-                return new SuccessResult();
+                return new ErrorResult(Messages.NullFileError);
             }
+
             string extension = FileHelper.GetFormFileExtension(formFile);
             string extensionUpper = extension.ToUpper();
             if (extensionUpper.Equals(".JPEG") || extensionUpper.Equals(".JPG") || extensionUpper.Equals(".PNG"))
@@ -127,7 +130,25 @@ namespace Business.Concrete
             return new ErrorResult(Messages.InvalidFileExtension);
         }
 
+        private IDataResult<List<CarImage>> CheckIfCarHasImages(int carId)
+        {
+            var result = _carImageDal.GetAll(image => image.CarId == carId);
+            int count = result.Count;
+            if (count != 0)
+            {
+                return new SuccessDataResult<List<CarImage>>($"Car has/have {count} image(s)", result);
+            }
+
+            var defaultCarImage = new CarImage
+            {
+                CarId = carId,
+                ImageName = FileHelper.defaultImageName,
+                ImagePath = FileHelper.GetDefaultImage(),
+            };
+            var defaultCarImages = new List<CarImage> {defaultCarImage};
+            return new SuccessDataResult<List<CarImage>>(Messages.CarHasNoImage, defaultCarImages);
+        }
+
         #endregion
-        
     }
 }

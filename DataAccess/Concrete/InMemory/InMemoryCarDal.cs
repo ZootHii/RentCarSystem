@@ -21,7 +21,7 @@ namespace DataAccess.Concrete.InMemory
                 new Car {Id = 3, BrandId = 1, ColorId = 2, ModelYear = new DateTime(2018,01,01), DailyPrice = 299.99M, Description = "Temiz"},
             };
         }
-        
+
         public List<Car> GetById(int id)
         {
             return _cars.Where(c => c.Id == id).ToList();

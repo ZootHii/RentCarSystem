@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation.FluentValidation;
-using Core.CrossCuttingConcerns.Validation;
-using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -26,7 +21,6 @@ namespace Business.Concrete
             _userDal = userDal;
         }
 
-        // TODO check is e mail in use
         [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
@@ -38,7 +32,6 @@ namespace Business.Concrete
 
             _userDal.Add(user);
             return new SuccessResult(Messages.UserAdded);
-            
         }
 
         [ValidationAspect(typeof(UserValidator))]
@@ -49,7 +42,7 @@ namespace Business.Concrete
             {
                 return result;
             }
-            
+
             _userDal.Update(user);
             return new SuccessResult(Messages.UserUpdated);
         }
@@ -72,21 +65,24 @@ namespace Business.Concrete
 
         public IDataResult<List<User>> GetUsersByFirstName(string firstName)
         {
-            return new SuccessDataResult<List<User>>(Messages.UsersListedFirstName, _userDal.GetAll(u => u.FirstName.Contains(firstName)));
+            return new SuccessDataResult<List<User>>(Messages.UsersListedFirstName,
+                _userDal.GetAll(u => u.FirstName.Contains(firstName)));
         }
 
         public IDataResult<List<User>> GetUsersByLastName(string lastName)
         {
-            return new SuccessDataResult<List<User>>(Messages.UsersListedLastName, _userDal.GetAll(u => u.LastName.Contains(lastName)));
+            return new SuccessDataResult<List<User>>(Messages.UsersListedLastName,
+                _userDal.GetAll(u => u.LastName.Contains(lastName)));
         }
 
         public IDataResult<List<User>> GetUsersByEMail(string eMail)
         {
-            return new SuccessDataResult<List<User>>(Messages.UsersListedEMail, _userDal.GetAll(u => u.EMail.Contains(eMail)));
+            return new SuccessDataResult<List<User>>(Messages.UsersListedEMail,
+                _userDal.GetAll(u => u.EMail.Contains(eMail)));
         }
 
         #region Rules
-        
+
         private IResult CheckIfEMailInUse(string EMail)
         {
             var result = _userDal.GetAll(u => u.EMail == EMail).Any();
@@ -95,9 +91,9 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.UserEMailInUse);
             }
 
-            return new SuccessResult("ddd");
+            return new SuccessResult();
         }
-        
+
         #endregion
     }
 }

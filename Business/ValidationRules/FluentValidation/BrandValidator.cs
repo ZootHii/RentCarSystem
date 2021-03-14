@@ -8,7 +8,7 @@ namespace Business.ValidationRules.FluentValidation
     {
         public BrandValidator()
         {
-            RuleFor(brand =>  brand.BrandName).NotEmpty().WithMessage(Messages.InvalidName);
+            RuleFor(brand => brand.BrandName).NotEmpty().WithMessage(Messages.InvalidName);
         }
     }
 }

@@ -36,43 +36,23 @@ namespace Business.Concrete
         [ValidationAspect(typeof(BrandValidator))]
         public IResult Update(Brand brand)
         {
-            if (DateTime.Now.Hour == 19)
-            {
-                return new ErrorResult(Messages.SystemMaintenance);
-            }
-
             _brandDal.Update(brand);
             return new SuccessResult();
         }
 
         public IResult Delete(Brand brand)
         {
-            if (DateTime.Now.Hour == 19)
-            {
-                return new ErrorResult(Messages.SystemMaintenance);
-            }
-
             _brandDal.Delete(brand);
             return new SuccessResult();
         }
 
         public IDataResult<Brand> GetBrandById(int brandId)
         {
-            if (DateTime.Now.Hour == 19)
-            {
-                return new ErrorDataResult<Brand>(Messages.SystemMaintenance);
-            }
-
             return new SuccessDataResult<Brand>(_brandDal.Get(b => b.Id == brandId));
         }
 
         public IDataResult<List<Brand>> GetAllBrands()
         {
-            if (DateTime.Now.Hour == 19)
-            {
-                return new ErrorDataResult<List<Brand>>(Messages.SystemMaintenance);
-            }
-            
             return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
     }

@@ -9,7 +9,7 @@ namespace Core.Utilities.Interceptors
         protected virtual void OnAfter(IInvocation invocation) { }
         protected virtual void OnException(IInvocation invocation, Exception exception) { }
         protected virtual void OnSuccess(IInvocation invocation) { }
-        
+
         public override void Intercept(IInvocation invocation)
         {
             bool isSuccess = true;
@@ -31,6 +31,7 @@ namespace Core.Utilities.Interceptors
                     OnSuccess(invocation);
                 }
             }
+
             OnAfter(invocation);
         }
     }

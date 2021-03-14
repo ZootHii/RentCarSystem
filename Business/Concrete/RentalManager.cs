@@ -5,8 +5,6 @@ using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation.FluentValidation;
-using Core.CrossCuttingConcerns.Validation;
-using Core.CrossCuttingConcerns.Validation.FluentValidation;
 using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -34,7 +32,7 @@ namespace Business.Concrete
             {
                 return result;
             }
-            
+
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
@@ -48,7 +46,7 @@ namespace Business.Concrete
             {
                 return result;
             }
-            
+
             _rentalDal.Update(rental);
             return new SuccessResult(Messages.RentalUpdated);
         }
@@ -91,7 +89,8 @@ namespace Business.Concrete
 
         private IResult CheckIfCarInUse(int carId)
         {
-            var result = _rentalDal.GetAll(r => r.CarId == carId && (r.ReturnDate == null || r.ReturnDate >= DateTime.Now)).Any();
+            var result = _rentalDal
+                .GetAll(r => r.CarId == carId && (r.ReturnDate == null || r.ReturnDate >= DateTime.Now)).Any();
             if (result)
             {
                 return new ErrorResult(Messages.RentalsCarInUse);
@@ -124,7 +123,7 @@ namespace Business.Concrete
 
             return new SuccessResult();
         }
-        
+
         #endregion
     }
 }
