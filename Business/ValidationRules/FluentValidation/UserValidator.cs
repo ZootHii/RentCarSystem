@@ -15,8 +15,8 @@ namespace Business.ValidationRules.FluentValidation
         {
             RuleFor(user => user.EMail).NotEmpty().WithMessage(Messages.UserInvalidEMail);
             RuleFor(user => user.EMail).EmailAddress().WithMessage(Messages.UserInvalidEMail);
-            RuleFor(user => user.Password).NotEmpty().WithMessage(Messages.UserInvalidPassword);
-            RuleFor(user => user.Password).Must(Password).WithMessage(Messages.UserInvalidPassword);
+            //RuleFor(user => user.Password).NotEmpty().WithMessage(Messages.UserInvalidPassword);
+            //RuleFor(user => user.Password).Must(Password).WithMessage(Messages.UserInvalidPassword);
             RuleFor(user => user.FirstName).NotEmpty().WithMessage(Messages.InvalidName);
             RuleFor(user => user.FirstName).Must(Name).WithMessage(Messages.InvalidName);
             RuleFor(user => user.LastName).NotEmpty().WithMessage(Messages.InvalidName);

@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.Linq;
 using Business.Concrete;
@@ -39,7 +39,7 @@ namespace ConsoleUI
 
 
             var result = rentalManager.Update(rental2);
-            Console.WriteLine(result.Message);*/
+            Console.WriteLine(result.Message);#1#
 
             /*var rental2 = new Rental
             {
@@ -50,7 +50,7 @@ namespace ConsoleUI
             };
             
             var result = rentalManager.Add(rental2);
-            Console.WriteLine(result.Message);*/
+            Console.WriteLine(result.Message);#1#
 
             var rental2 = new Rental
             {
@@ -314,7 +314,7 @@ namespace ConsoleUI
             else
             {
                 Console.WriteLine(resultAdd.Message);
-            }*/
+            }#1#
 
             var resultAdd2 = carManager.Add(new Car
                 {BrandId = 3, ColorId = 5, ModelYear = new DateTime(2000, 01, 01), DailyPrice = 0M, Description = "Boş"});
@@ -401,4 +401,4 @@ namespace ConsoleUI
             }
         }
     }
-}
+}*/
