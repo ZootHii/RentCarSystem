@@ -1,10 +1,12 @@
-﻿namespace Entities.Concrete.DTOs
+﻿using Core.Entities;
+
+namespace Entities.Concrete.DTOs
 {
-    public class UserRegisterDto
+    public class UserRegisterDto : IDto
     {
-        public int OperationClaimId { get; set; }
-        public string OperationClaimName { get; set; }
-        public int UserId { get; set; }
-        public string UserName { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string EMail { get; set; }
+        public string Password { get; set; }
     }
 }

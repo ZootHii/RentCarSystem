@@ -1,7 +1,10 @@
-﻿namespace Entities.Concrete.DTOs
+﻿using Core.Entities;
+
+namespace Entities.Concrete.DTOs
 {
-    public class UserLoginDto
+    public class UserLoginDto : IDto
     {
-        
+        public string EMail { get; set; }
+        public string Password { get; set; }
     }
 }
