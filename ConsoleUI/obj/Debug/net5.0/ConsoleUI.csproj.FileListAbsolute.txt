@@ -71,3 +71,7 @@ C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\ConsoleUI\bin\Debug\net5.0\C
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\ConsoleUI\bin\Debug\net5.0\Core.pdb
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\ConsoleUI\bin\Debug\net5.0\Autofac.dll
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\ConsoleUI\bin\Debug\net5.0\FluentValidation.dll
+C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\ConsoleUI\bin\Debug\net5.0\Autofac.Extras.DynamicProxy.dll
+C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\ConsoleUI\bin\Debug\net5.0\Castle.Core.dll
+C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\ConsoleUI\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\ConsoleUI\bin\Debug\net5.0\System.IO.Pipelines.dll

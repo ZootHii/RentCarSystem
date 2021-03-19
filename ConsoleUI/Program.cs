@@ -1,4 +1,4 @@
-﻿/*using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Business.Concrete;
@@ -23,7 +23,7 @@ namespace ConsoleUI
 
         }
 
-        private static void Test7Rent()
+        /*private static void Test7Rent()
         {
             // rental works perfect for 2 hours limit and in use situation
             var rentalManager = new RentalManager(new EfRentalDal());
@@ -399,6 +399,6 @@ namespace ConsoleUI
             {
                 Console.WriteLine(car.ToString());
             }
-        }
+        }*/
     }
-}*/
+}

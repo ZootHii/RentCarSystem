@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using Business.Constants;
+using Core.Entities.Concrete;
 using Entities.Concrete;
 using FluentValidation;
 
