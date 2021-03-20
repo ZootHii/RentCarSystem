@@ -41,5 +41,6 @@
         public static string NullFileError => "Image File must not be null";
         public static string CarHasNoImage => "There is no image for this car";
         public static string CarReachedMaxImageCount => "Car has reached max image (5)";
+        public static string AuthorizationDenied => "Authorization Denied not an authorized operation";
     }
 }

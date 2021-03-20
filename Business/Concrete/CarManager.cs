@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Business.Abstract;
+using Business.Aspects.Autofac.SecuredOperation.Jwt;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation.FluentValidation;
@@ -20,6 +21,7 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [SecuredOperationAspect("car.add, admin")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {

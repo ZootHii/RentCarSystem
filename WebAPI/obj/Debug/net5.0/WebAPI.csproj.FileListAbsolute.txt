@@ -20,7 +20,6 @@ C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Micr
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Microsoft.OpenApi.dll
-C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -72,3 +71,4 @@ C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Auto
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Castle.Core.dll
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\System.IO.Pipelines.dll
+C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
