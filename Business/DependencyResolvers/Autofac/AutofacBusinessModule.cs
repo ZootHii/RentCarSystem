@@ -4,6 +4,8 @@ using Business.Abstract;
 using Business.Concrete;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.TokenCreation;
+using Core.Utilities.Security.TokenCreation.Jwt;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 
@@ -45,6 +47,11 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>().SingleInstance();
             builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimDal>().SingleInstance();
             
+            // TODO add validators
+            builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
+            
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
+
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             builder

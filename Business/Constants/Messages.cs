@@ -36,11 +36,17 @@
         public static string UsersListedFirstName => "All users are successfully listed by first name";
         public static string UsersListedLastName => "All users are successfully listed by last name";
         public static string UsersListedEMail => "All users are successfully listed by eMail";
-        public static string UserEMailInUse => "eMail is already in use";
+        public static string UserExistsWithTheSameEMail => "There is a user already exists with the same eMail";
         public static string InvalidFileExtension => "File extension must be JPG, JPEG or PNG";
         public static string NullFileError => "Image File must not be null";
         public static string CarHasNoImage => "There is no image for this car";
         public static string CarReachedMaxImageCount => "Car has reached max image (5)";
         public static string AuthorizationDenied => "Authorization Denied not an authorized operation";
+        public static string UserRegistered => "Successfully Registered";
+        public static string UserLoggedIn => "Successfully Logged in";
+        public static string CarImagesListedByCarId => "Car image/s listed by car id";
+        public static string UserNotFound => "User not found";
+        public static string PasswordNotTrue => "User password is not true";
+        public static string AccessTokenCreated => "Access token created";
     }
 }

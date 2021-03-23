@@ -3,7 +3,6 @@ using System.Linq;
 using Core.DataAccess.EntityFramework;
 using Core.Entities.Concrete;
 using DataAccess.Abstract;
-using Entities.Concrete;
 using Entities.Concrete.DTOs;
 
 namespace DataAccess.Concrete.EntityFramework
@@ -22,7 +21,7 @@ namespace DataAccess.Concrete.EntityFramework
                     {
                         OperationClaimId = operationClaim.Id,
                         OperationClaimName = operationClaim.Name,
-                        UserId = userOperationClaim.UserId,
+                        UserId = user.Id,
                         UserName = $"{user.FirstName} {user.LastName}"
                     };
                 return result.ToList();

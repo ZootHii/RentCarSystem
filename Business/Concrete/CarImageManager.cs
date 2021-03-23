@@ -96,10 +96,24 @@ namespace Business.Concrete
 
         public IDataResult<List<CarImage>> GetCarImagesByCarId(int carId)
         {
-            var result = BusinessRules.Run(CheckIfCarHasImages(carId));
-            return result;
+            // we must always return Image/Images so always success
+            var result = _carImageDal.GetAll(image => image.CarId == carId);
+            return result.Count == 0 
+                ? new SuccessDataResult<List<CarImage>>(Messages.CarHasNoImage, GetDefaultCarImagesForTheCar(carId)) 
+                : new SuccessDataResult<List<CarImage>>(Messages.CarImagesListedByCarId, result);
         }
 
+        private List<CarImage> GetDefaultCarImagesForTheCar(int carId)
+        {
+            var defaultCarImage = new CarImage
+            {
+                CarId = carId,
+                ImageName = FileHelper.defaultImageName,
+                ImagePath = FileHelper.GetDefaultImage(),
+            };
+            return new List<CarImage> {defaultCarImage};
+        }
+        
         #region Rules
 
         private IResult CheckIfCarReachedMaxImageCount(int carId)
@@ -129,26 +143,7 @@ namespace Business.Concrete
 
             return new ErrorResult(Messages.InvalidFileExtension);
         }
-
-        private IDataResult<List<CarImage>> CheckIfCarHasImages(int carId)
-        {
-            var result = _carImageDal.GetAll(image => image.CarId == carId);
-            int count = result.Count;
-            if (count != 0)
-            {
-                return new SuccessDataResult<List<CarImage>>($"Car has/have {count} image(s)", result);
-            }
-
-            var defaultCarImage = new CarImage
-            {
-                CarId = carId,
-                ImageName = FileHelper.defaultImageName,
-                ImagePath = FileHelper.GetDefaultImage(),
-            };
-            var defaultCarImages = new List<CarImage> {defaultCarImage};
-            return new SuccessDataResult<List<CarImage>>(Messages.CarHasNoImage, defaultCarImages);
-        }
-
+        
         #endregion
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
@@ -9,7 +8,7 @@ using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
-using Entities.Concrete;
+using Entities.Concrete.DTOs;
 
 namespace Business.Concrete
 {
@@ -25,7 +24,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(UserValidator))]
         public IResult Add(User user)
         {
-            var result = BusinessRules.Run(CheckIfEMailInUse(user.EMail));
+            var result = BusinessRules.Run(CheckIfUserExistsWithTheSameEMail<object>(user.EMail).IResult);
             if (result != null)
             {
                 return result;
@@ -38,7 +37,7 @@ namespace Business.Concrete
         [ValidationAspect(typeof(UserValidator))]
         public IResult Update(User user)
         {
-            var result = BusinessRules.Run(CheckIfEMailInUse(user.EMail));
+            var result = BusinessRules.Run(CheckIfUserExistsWithTheSameEMail<object>(user.EMail).IResult);
             if (result != null)
             {
                 return result;
@@ -56,7 +55,17 @@ namespace Business.Concrete
 
         public IDataResult<User> GetUserById(int userId)
         {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId));
+            return new SuccessDataResult<User>(_userDal.Get(user => user.Id == userId));
+        }
+        
+        public IDataResult<User> GetUserByEMail(string eMail)
+        {
+            var result = _userDal.Get(user => user.EMail == eMail);
+            if (result == null)
+            {
+                return new ErrorDataResult<User>(Messages.UserNotFound);
+            }
+            return new SuccessDataResult<User>(result);
         }
 
         public IDataResult<List<User>> GetAllUsers()
@@ -82,19 +91,20 @@ namespace Business.Concrete
                 _userDal.GetAll(u => u.EMail.Contains(eMail)));
         }
 
-        #region Rules
-
-        private IResult CheckIfEMailInUse(string EMail)
+        public IDataResult<List<OperationClaimDto>> GetUserOperationClaims(User user)
         {
-            var result = _userDal.GetAll(u => u.EMail == EMail).Any();
-            if (result)
+            return new SuccessDataResult<List<OperationClaimDto>>(_userDal.GetUserOperationClaims(user));
+        }
+        
+        public (IResult IResult, IDataResult<T> IDataResult) CheckIfUserExistsWithTheSameEMail<T>(string eMail)
+        {
+            var result = GetUserByEMail(eMail);
+            if (result.Success)
             {
-                return new ErrorResult(Messages.UserEMailInUse);
+                return (new ErrorResult(Messages.UserExistsWithTheSameEMail), new ErrorDataResult<T>(Messages.UserExistsWithTheSameEMail));
             }
 
-            return new SuccessResult();
+            return (new SuccessResult(), new SuccessDataResult<T>());
         }
-
-        #endregion
     }
 }

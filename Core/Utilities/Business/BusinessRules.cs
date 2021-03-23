@@ -7,18 +7,22 @@ namespace Core.Utilities.Business
     {
         public static IResult Run(params IResult[] rules)
         {
-            return rules.FirstOrDefault(rule => !rule.Success);
+            foreach (var rule in rules)
+            {
+                if (!rule.Success) return rule;
+            }
+
+            return null;
         }
 
         public static IDataResult<T> Run<T>(params IDataResult<T>[] rules) // generic method without non generic class
         {
-            IDataResult<T> dataResult = null;
             foreach (var rule in rules)
             {
-                dataResult = rule;
+                if (!rule.Success) return rule;
             }
 
-            return dataResult;
+            return null;
         }
     }
 }

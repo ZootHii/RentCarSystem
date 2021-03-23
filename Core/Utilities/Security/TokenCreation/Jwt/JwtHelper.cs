@@ -21,7 +21,7 @@ namespace Core.Utilities.Security.TokenCreation.Jwt
         public JwtHelper(IConfiguration configuration)
         {
             Configuration = configuration;
-            // to do this Get<TokenOptions>() Microsoft.AspNetCore.Authentication.JwtBearer package needed
+            // to do 'Get<TokenOptions>()' Microsoft.AspNetCore.Authentication.JwtBearer package needed
             _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
         }
         

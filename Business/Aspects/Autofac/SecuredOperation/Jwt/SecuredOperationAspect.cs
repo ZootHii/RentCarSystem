@@ -6,14 +6,15 @@ using Core.Extensions;
 using Core.Utilities.Interceptors;
 using Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Business.Aspects.Autofac.SecuredOperation.Jwt
 {
     public class SecuredOperationAspect : MethodInterception
     {
-        private readonly string[] _roles;
-        private readonly IHttpContextAccessor _httpContextAccessor;
+        private string[] _roles;
+        private IHttpContextAccessor _httpContextAccessor;
         
         public SecuredOperationAspect(string roles)
         {
@@ -23,11 +24,26 @@ namespace Business.Aspects.Autofac.SecuredOperation.Jwt
 
         protected override void OnBefore(IInvocation invocation)
         {
-            var claimRoles = _httpContextAccessor.HttpContext?.User.ClaimRoles();
-            if (_roles.Any(role => claimRoles != null && claimRoles.Contains(role)))
+            var claimRoles = _httpContextAccessor.HttpContext.User.ClaimRoles();
+            
+            Console.WriteLine(_httpContextAccessor.HttpContext.Request.GetDisplayUrl());
+            /*foreach (string role in _roles)
             {
-                return;
+                Console.WriteLine("Role için : "+role);
             }
+            foreach (string claimRole in claimRoles)
+            {
+                Console.WriteLine("claim role için : " + claimRole.Length);
+            }*/
+
+            foreach (string role in _roles)
+            {
+                if (claimRoles.Contains(role))
+                {
+                    return;
+                }
+            }
+            
             throw new Exception(Messages.AuthorizationDenied);
         }
     }
