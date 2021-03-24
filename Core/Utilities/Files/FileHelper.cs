@@ -26,6 +26,20 @@ namespace Core.Utilities.Files
             }
         }
 
+        public static void DeleteImage(string imageName)
+        {
+            string filePathPost = $@"{"Images"}\{"Post"}\{imageName}";
+            string filePathGet = $@"{"Images"}\{"Get"}\{imageName}";
+            if (File.Exists(filePathPost))
+            {
+                File.Delete(filePathPost);
+            }
+            if (File.Exists(filePathGet))
+            {
+                File.Delete(filePathGet);
+            }
+        }
+
         public static byte[] GetDefaultImage()
         {
             var fileInfo = new FileInfo($@"{"Images"}\{defaultImageName}");

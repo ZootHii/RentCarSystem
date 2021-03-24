@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
-using Core.Aspects.Autofac.Validation.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Files;
 using Core.Utilities.Results.Abstract;
@@ -46,15 +46,19 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarImageValidator))]
         public async Task<IResult> Update(CarImage carImage, IFormFile imageFile)
         {
-            // TODO update ederken eski fotoğrafı mı kullanacak, yeni fotoğrafı mı, yoksa hiç bir fotoğraf mı.
-            // TODO sanırım update te eskisini koymak daha mantıklı logo koymak yerine
-            // TODO eski fotoğrafı post ve get kısmından sil
+            var result = BusinessRules.Run(CheckIfFormFileIsImageOrNull(imageFile));
+            if (result != null)
+            {
+                return result;
+            }
+            
             var toUpdateCarImageResult = _carImageDal.Get(image => image.Id == carImage.Id);
             carImage.UploadDate = toUpdateCarImageResult.UploadDate;
+            
             if (imageFile != null)
             {
-                carImage.ImageName =
-                    FileHelper.CreateImageNameWithExtension(imageFile); // eski ismiyle kaydetme uzantı uyuşmayabilir
+                // change old name because extension may differ
+                carImage.ImageName = FileHelper.CreateImageNameWithExtension(imageFile);
                 carImage.ImagePath = await FileHelper.ConvertFormFileToByteArray(imageFile);
             }
             else
@@ -66,6 +70,7 @@ namespace Business.Concrete
             _carImageDal.Update(carImage);
             if (imageFile != null)
             {
+                FileHelper.DeleteImage(toUpdateCarImageResult.ImageName);
                 await FileHelper.WriteFormFileToImagesPost(imageFile, carImage.ImageName);
             }
 
@@ -74,8 +79,10 @@ namespace Business.Concrete
 
         public IResult Delete(CarImage carImage)
         {
-            // TODO
-            throw new System.NotImplementedException();
+            var imageToDelete = _carImageDal.Get(image => image.Id == carImage.Id);
+            _carImageDal.Delete(carImage);
+            FileHelper.DeleteImage(imageToDelete.ImageName);
+            return new SuccessResult();
         }
 
         public async Task<IDataResult<CarImage>> GetCarImageById(int carImageId)
@@ -118,7 +125,7 @@ namespace Business.Concrete
 
         private IResult CheckIfCarReachedMaxImageCount(int carId)
         {
-            var result = _carImageDal.GetAll(image => image.CarId == carId).Count;
+            int result = _carImageDal.GetAll(image => image.CarId == carId).Count;
             if (result >= 5)
             {
                 return new ErrorResult(Messages.CarReachedMaxImageCount);
