@@ -30,6 +30,8 @@ namespace WebAPI
             
             services.AddControllers();
             
+            services.AddCors();
+            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -94,6 +96,8 @@ namespace WebAPI
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebAPI v1"));
             }
 
+            app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
