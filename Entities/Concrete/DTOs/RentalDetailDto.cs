@@ -5,7 +5,7 @@ namespace Entities.Concrete.DTOs
 {
     public class RentalDetailDto : IDto
     {
-        public int RentalId { get; set; }
+        public int Id { get; set; }
         public int CarId { get; set; }
         public int CustomerId { get; set; }
         public DateTime RentDate { get; set; }
@@ -20,7 +20,7 @@ namespace Entities.Concrete.DTOs
         public string EMail { get; set; }
         public string CompanyName { get; set; }
 
-        public override string ToString()
+        /*public override string ToString()
         {
             
             return "RentalID = " + RentalId +
@@ -37,6 +37,6 @@ namespace Entities.Concrete.DTOs
                    " / LastName = " + LastName +
                    " / EMail = " + EMail +
                    " / CompanyName = " + CompanyName;
-        }
+        }*/
     }
 }

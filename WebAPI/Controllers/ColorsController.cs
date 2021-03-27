@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("get/by/id")]
-        public IActionResult GetById(int id)
+        public IActionResult GetColorById(int id)
         {
             var result = _colorService.GetColorById(id);
 
@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("get/all")]
-        public IActionResult GetAll()
+        public IActionResult GetAllColors()
         {
             var result = _colorService.GetAllColors();
 

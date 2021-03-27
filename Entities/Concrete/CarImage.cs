@@ -1,11 +1,11 @@
 ﻿using System;
-using System.IO;
 using Core.Entities;
 
 namespace Entities.Concrete
 {
     public class CarImage : IEntity
     {
+        public System.Guid GUID { get; set; }
         public int Id { get; set; }
         public int CarId { get; set; }
         public string ImageName { get; set; }

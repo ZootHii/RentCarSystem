@@ -1,11 +1,12 @@
-﻿using Business.Abstract;
+﻿using System.Reflection.Metadata;
+using Business.Abstract;
 using Entities.Concrete.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
     [ApiController]
-    [Route("controller")]
+    [Route("[controller]")]
     public class AuthsController : Controller
     {
         private readonly IAuthService _authService;

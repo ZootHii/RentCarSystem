@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
             _userService = userService;
         }
         
-        [HttpGet("user/by/id")]
+        [HttpGet("get/by/id")]
         public IActionResult GetUserById(int id)
         {
             var result = _userService.GetUserById(id);
@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("users/all")]
+        [HttpGet("get/all")]
         public IActionResult GetAllUsers()
         {
             var result = _userService.GetAllUsers();
@@ -42,7 +42,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("users/by/email")]
+        [HttpGet("get/all/by/email")]
         public IActionResult GetUsersByEMail(string eMail)
         {
             var result = _userService.GetUsersByEMail(eMail);
@@ -55,7 +55,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         
-        [HttpGet("user/by/email")]
+        [HttpGet("get/by/email")]
         public IActionResult GetUserByEMail(string eMail)
         {
             var result = _userService.GetUserByEMail(eMail);
@@ -69,7 +69,7 @@ namespace WebAPI.Controllers
         }
 
         // todo by name olarak ta yapılabilir ad ve soyad beraber
-        [HttpGet("users/by/first/name")]
+        [HttpGet("get/all/by/first/name")]
         public IActionResult GetUsersByFirstName(string firstName)
         {
             var result = _userService.GetUsersByFirstName(firstName);
@@ -82,7 +82,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("users/by/last/name")]
+        [HttpGet("get/all/by/last/name")]
         public IActionResult GetUsersByLastName(string lastName)
         {
             var result = _userService.GetUsersByLastName(lastName);
@@ -95,7 +95,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("user/operation/claims")]
+        [HttpGet("get/operation/claims")]
         public IActionResult GetUserOperationClaims(User user)
         {
             var result = _userService.GetUserOperationClaims(user);

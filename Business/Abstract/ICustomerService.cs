@@ -13,6 +13,6 @@ namespace Business.Abstract
         public IDataResult<Customer> GetCustomerById(int customerId);
         public IDataResult<List<Customer>> GetAllCustomers();
         public IDataResult<List<Customer>> GetCustomersByUserId(int userId);
-        public IDataResult<List<CustomerDetailDto>> GetCustomerDetails();
+        public IDataResult<List<CustomerDetailDto>> GetCustomersDetails();
     }
 }

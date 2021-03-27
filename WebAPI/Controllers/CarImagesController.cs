@@ -18,7 +18,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("get/by/id")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetCarImageById(int id)
         {
             var result = await _carImageService.GetCarImageById(id);
 
@@ -30,8 +30,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("get/by/car/id")]
-        public IActionResult GetByCarId(int carId)
+        [HttpGet("get/all/by/car/id")]
+        public IActionResult GetCarImagesByCarId(int carId)
         {
             var result = _carImageService.GetCarImagesByCarId(carId);
 

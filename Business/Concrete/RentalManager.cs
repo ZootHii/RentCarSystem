@@ -79,10 +79,10 @@ namespace Business.Concrete
                 _rentalDal.GetAll(r => r.CustomerId == customerId));
         }
 
-        public IDataResult<List<RentalDetailDto>> GetRentalDetails()
+        public IDataResult<List<RentalDetailDto>> GetRentalsDetails()
         {
             return new SuccessDataResult<List<RentalDetailDto>>(Messages.RentalsListedDetails,
-                _rentalDal.GetRentalDetails());
+                _rentalDal.GetRentalsDetails());
         }
 
         #region Rules

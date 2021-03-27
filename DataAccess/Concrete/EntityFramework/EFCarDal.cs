@@ -9,7 +9,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfCarDal : EfEntityRepositoryBase<Car, CarRentalContext>, ICarDal
     {
-        public List<CarDetailDto> GetCarDetails()
+        public List<CarDetailDto> GetCarsDetails()
         {
             using (var context = new CarRentalContext())
             {
@@ -20,7 +20,9 @@ namespace DataAccess.Concrete.EntityFramework
 
                     select new CarDetailDto
                     {
-                        CarId = car.Id,
+                        Id = car.Id,
+                        BrandId = brand.Id,
+                        ColorId = color.Id,
                         BrandName = brand.BrandName,
                         ColorName = color.ColorName,
                         ModelYear = car.ModelYear,

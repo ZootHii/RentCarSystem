@@ -9,7 +9,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfRentalDal : EfEntityRepositoryBase<Rental, CarRentalContext>, IRentalDal
     {
-        public List<RentalDetailDto> GetRentalDetails()
+        public List<RentalDetailDto> GetRentalsDetails()
         {
             using (var context = new CarRentalContext())
             {
@@ -22,10 +22,11 @@ namespace DataAccess.Concrete.EntityFramework
                     join user in context.Users on customer.UserId equals user.Id
                     select new RentalDetailDto
                     {
-                        RentalId = rental.Id,
+                        Id = rental.Id,
                         CarId = rental.CarId,
                         CustomerId = rental.CustomerId,
-                        RentDate = rental.ReturnDate.Value,
+                        RentDate = rental.RentDate,
+                        ReturnDate = rental.ReturnDate,
                         BrandName = brand.BrandName,
                         ModelYear = car.ModelYear,
                         ColorName = color.ColorName,

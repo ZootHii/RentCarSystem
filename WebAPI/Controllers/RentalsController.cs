@@ -16,7 +16,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("get/by/id")]
-        public IActionResult GetById(int id)
+        public IActionResult GetRentalById(int id)
         {
             var result = _rentalService.GetRentalById(id);
 
@@ -29,7 +29,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("get/all")]
-        public IActionResult GetAll()
+        public IActionResult GetAllRentals()
         {
             var result = _rentalService.GetAllRentals();
 
@@ -41,8 +41,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("get/by/car/id")]
-        public IActionResult GetByCarId(int carId)
+        [HttpGet("get/all/by/car/id")]
+        public IActionResult GetRentalsByCarId(int carId)
         {
             var result = _rentalService.GetRentalsByCarId(carId);
 
@@ -54,8 +54,8 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("get/by/customer/id")]
-        public IActionResult GetByCustomerId(int customerId)
+        [HttpGet("get/all/by/customer/id")]
+        public IActionResult GetRentalsByCustomerId(int customerId)
         {
             var result = _rentalService.GetRentalsByCustomerId(customerId);
 
@@ -67,10 +67,10 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("get/details")]
-        public IActionResult GetDetails()
+        [HttpGet("get/all/details")]
+        public IActionResult GetRentalsDetails()
         {
-            var result = _rentalService.GetRentalDetails();
+            var result = _rentalService.GetRentalsDetails();
 
             if (result.Success)
             {

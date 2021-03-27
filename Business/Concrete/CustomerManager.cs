@@ -55,9 +55,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Customer>>("all user id", _customerDal.GetAll(c => c.UserId == userId));
         }
 
-        public IDataResult<List<CustomerDetailDto>> GetCustomerDetails()
+        public IDataResult<List<CustomerDetailDto>> GetCustomersDetails()
         {
-            return new SuccessDataResult<List<CustomerDetailDto>>("detail", _customerDal.GetCustomerDetails());
+            return new SuccessDataResult<List<CustomerDetailDto>>("detail", _customerDal.GetCustomersDetails());
         }
     }
 }

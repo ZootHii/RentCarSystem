@@ -12,6 +12,11 @@ namespace Core.Utilities.Files
         // WebAPI -> Images -> Post (Directory)
         // WebAPI -> Images -> logo.jpeg
 
+        // todo "maybe" turn image byte[] to base64 string url 
+        // todo SQL SERVER FILESTREAM sqlserver configuration manager->sql server services->
+        // todo SQLSERVER(MSSQL SERVER)-> properties-> FILESTREAM
+        // todo about FILESTREAM : https://www.sqlshack.com/filestream-in-sql-server/ 
+        
         public const string defaultImageName = "logo.jpg";
 
         public static async Task WriteFormFileToImagesPost(IFormFile formFile, string imageName)
@@ -75,12 +80,12 @@ namespace Core.Utilities.Files
             string fileExtension = fileInfo.Extension;
             return fileExtension;
         }
-
-        public static string CreateImageNameWithExtension(IFormFile formFile)
+        
+        public static (string imageName, string guid) CreateImageNameWithExtension(IFormFile formFile)
         {
             string newFileName = Guid.NewGuid().ToString();
             string imageName = newFileName + GetFormFileExtension(formFile);
-            return imageName;
+            return (imageName, newFileName);
         }
     }
 }

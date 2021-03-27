@@ -27,14 +27,15 @@ namespace Business.Concrete
         [ValidationAspect(typeof(CarImageValidator))]
         public async Task<IResult> Add(CarImage carImage, IFormFile imageFile)
         {
-            var result = BusinessRules.Run(CheckIfFormFileIsImageOrNull(imageFile),
+            /*var result = BusinessRules.Run(CheckIfFormFileIsImageOrNull(imageFile),
                 CheckIfCarReachedMaxImageCount(carImage.CarId));
             if (result != null)
             {
                 return result;
-            }
+            }*/
 
-            carImage.ImageName = FileHelper.CreateImageNameWithExtension(imageFile);
+            carImage.GUID = Guid.NewGuid();
+            carImage.ImageName = FileHelper.CreateImageNameWithExtension(imageFile).imageName;
             carImage.UploadDate = DateTime.Now;
             carImage.ImagePath = await FileHelper.ConvertFormFileToByteArray(imageFile);
             _carImageDal.Add(carImage);
@@ -58,11 +59,13 @@ namespace Business.Concrete
             if (imageFile != null)
             {
                 // change old name because extension may differ
-                carImage.ImageName = FileHelper.CreateImageNameWithExtension(imageFile);
+                carImage.GUID = toUpdateCarImageResult.GUID;
+                carImage.ImageName = FileHelper.CreateImageNameWithExtension(imageFile).imageName;
                 carImage.ImagePath = await FileHelper.ConvertFormFileToByteArray(imageFile);
             }
             else
             {
+                carImage.GUID = toUpdateCarImageResult.GUID;
                 carImage.ImageName = toUpdateCarImageResult.ImageName;
                 carImage.ImagePath = toUpdateCarImageResult.ImagePath;
             }
@@ -90,6 +93,9 @@ namespace Business.Concrete
             //TODO CheckIfCarImageExists
             var dataResult = new SuccessDataResult<CarImage>(_carImageDal.Get(image => image.Id == carImageId));
 
+            
+            
+            
             await FileHelper.WriteImageBytesToImagesGet(dataResult.Data.ImagePath, dataResult.Data.ImageName);
 
             return dataResult;
