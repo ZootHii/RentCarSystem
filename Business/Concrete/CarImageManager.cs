@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Files;
@@ -25,6 +26,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarImageValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public async Task<IResult> Add(CarImage carImage, IFormFile imageFile)
         {
             /*var result = BusinessRules.Run(CheckIfFormFileIsImageOrNull(imageFile),
@@ -45,6 +47,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(CarImageValidator))]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public async Task<IResult> Update(CarImage carImage, IFormFile imageFile)
         {
             var result = BusinessRules.Run(CheckIfFormFileIsImageOrNull(imageFile));
@@ -80,6 +83,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Delete(CarImage carImage)
         {
             var imageToDelete = _carImageDal.Get(image => image.Id == carImage.Id);
@@ -88,6 +92,7 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        [CacheAspect]
         public async Task<IDataResult<CarImage>> GetCarImageById(int carImageId)
         {
             //TODO CheckIfCarImageExists
@@ -100,13 +105,16 @@ namespace Business.Concrete
 
             return dataResult;
         }
-
+        
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetAllCarImages()
         {
-            // todo çok kasacak pc yi büyük boyutlu dosyalarda o yüzden ilerde küçültme işlemi yap max boyut belirle
-            throw new System.NotImplementedException();
+            /*// todo çok kasacak pc yi büyük boyutlu dosyalarda o yüzden ilerde küçültme işlemi yap max boyut belirle
+            throw new System.NotImplementedException();*/
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
 
+        [CacheAspect]
         public IDataResult<List<CarImage>> GetCarImagesByCarId(int carId)
         {
             // we must always return Image/Images so always success

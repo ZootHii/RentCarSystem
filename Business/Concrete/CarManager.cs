@@ -24,7 +24,7 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        [SecuredOperationAspect("car.add, admin")]
+        //[SecuredOperationAspect("car.add, admin")]
         [ValidationAspect(typeof(CarValidator))]
         [TransactionScopeAspect]
         [CacheRemoveAspect("ICarService.Get")]
@@ -82,6 +82,24 @@ namespace Business.Concrete
         public IDataResult<List<CarDetailDto>> GetCarsDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(Messages.CarsListedDetails, _carDal.GetCarsDetails());
+        }
+
+        [CacheAspect]
+        public IDataResult<List<CarDetailDto>> GetCarsDetailsByBrandId(int brandId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>("", _carDal.GetCarsDetailsByBrandId(brandId));
+        }
+
+        [CacheAspect]
+        public IDataResult<List<CarDetailDto>> GetCarsDetailsByColorId(int colorId)
+        {
+            return new SuccessDataResult<List<CarDetailDto>>("", _carDal.GetCarsDetailsByColorId(colorId));
+        }
+        
+        [CacheAspect]
+        public IDataResult<CarDetailDto> GetCarDetailsByCarId(int carId)
+        {
+            return new SuccessDataResult<CarDetailDto>("", _carDal.GetCarDetailsByCarId(carId));
         }
     }
 }

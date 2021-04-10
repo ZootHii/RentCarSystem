@@ -44,7 +44,7 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
 
         public void RemoveDataFromCacheByPattern(string pattern)
         {
-            var cacheEntriesCollectionInfo = typeof(MemoryCache).GetProperty("EntriesCollection", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            /*var cacheEntriesCollectionInfo = typeof(MemoryCache).GetProperty("EntriesCollection", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
             var cacheEntriesCollection = cacheEntriesCollectionInfo?.GetValue(_memoryCache) as dynamic;
             
             var cacheCollectionValues = new List<ICacheEntry>();
@@ -61,6 +61,26 @@ namespace Core.CrossCuttingConcerns.Caching.Microsoft
             var regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
             var keysToRemove = cacheCollectionValues.Where(cacheEntry => regex.IsMatch(cacheEntry.ToString()!)).Select(cacheEntry => cacheEntry.Key).ToList();
 
+            Console.WriteLine(pattern+"--------------------------------");
+            Console.WriteLine(pattern);
+            Console.WriteLine(pattern);
+            Console.WriteLine(pattern);*/
+            
+            var memoryCacheEntriesCollectionInfo = typeof(MemoryCache).GetProperty("EntriesCollection", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var memoryCacheEntriesCollection = memoryCacheEntriesCollectionInfo?.GetValue(_memoryCache) as dynamic;
+            
+            var memoryCacheCollectionValues = new List<ICacheEntry>();
+
+            foreach (var cacheItem in memoryCacheEntriesCollection)
+            {
+                ICacheEntry cacheItemValue = cacheItem.GetType().GetProperty("Value").GetValue(cacheItem, null);
+                memoryCacheCollectionValues.Add(cacheItemValue);
+            }
+
+            var regex = new Regex(pattern, RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            var keysToRemove = memoryCacheCollectionValues.Where(cacheEntry => regex.IsMatch(cacheEntry.Key.ToString()!)).Select(cacheEntry => cacheEntry.Key).ToList();
+
+            
             foreach (var key in keysToRemove)
             {
                 _memoryCache.Remove(key);

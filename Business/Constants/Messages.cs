@@ -48,5 +48,13 @@
         public static string UserNotFound => "User not found";
         public static string PasswordNotTrue => "User password is not true";
         public static string AccessTokenCreated => "Access token created";
+
+        public static string BrandAdded => "Brand is successfully Added";
+        public static string BrandUpdated => "Brand is successfully Updated";
+        public static string BrandDeleted => "Brand is successfully Deleted";
+        
+        public static string ColorAdded => "Color is successfully Added";
+        public static string ColorUpdated => "Color is successfully Updated";
+        public static string ColorDeleted => "Color is successfully Deleted";
     }
 }

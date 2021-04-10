@@ -4,6 +4,7 @@ using System.Linq;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
@@ -24,6 +25,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(RentalValidator))]
+        [TransactionScopeAspect]
         public IResult Add(Rental rental)
         {
             var result = BusinessRules.Run(CheckIfCarInUse(rental.CarId),
@@ -38,6 +40,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(RentalValidator))]
+        [TransactionScopeAspect]
         public IResult Update(Rental rental)
         {
             var result = BusinessRules.Run(CheckIfCarInUse(rental.CarId),

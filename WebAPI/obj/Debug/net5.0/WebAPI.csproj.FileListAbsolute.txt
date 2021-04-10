@@ -72,3 +72,4 @@ C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Cast
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\System.IO.Pipelines.dll
 C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\ahmet\Desktop\cs - workspace\RentCarSystem\WebAPI\bin\Debug\net5.0\Newtonsoft.Json.dll

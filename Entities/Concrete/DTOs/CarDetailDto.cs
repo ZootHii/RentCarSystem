@@ -14,9 +14,7 @@ namespace Entities.Concrete.DTOs
         public DateTime ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
         public string Description { get; set; }
-        //public List<string> ImageName { get; set; }
-        //public List<byte[]> ImagePath { get; set; }
-        
+
         /*public override string ToString()
         {
             return "CarID = " + CarId +
