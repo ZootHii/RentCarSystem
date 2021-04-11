@@ -6,7 +6,7 @@ using Core.Utilities.Results.Concrete;
 
 namespace Business.Concrete
 {
-    public class FakePaymentManager : IFakePaymentService
+    public class PaymentManager : IPaymentService
     {
         [TransactionScopeAspect]
         public IResult Add(int totalPrice)

@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using Core.Entities.Concrete;
+using Entities.Concrete.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -67,6 +68,19 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        
+        [HttpGet("get/response/by/email")]
+        public IActionResult GetUserResponseByEMail(string eMail)
+        {
+            var result = _userService.GetUserResponseByEMail(eMail);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
 
         // todo by name olarak ta yapılabilir ad ve soyad beraber
         [HttpGet("get/all/by/first/name")]
@@ -122,9 +136,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(User user)
+        public IActionResult Delete(UserEditDto userEditDto)
         {
-            var result = _userService.Delete(user);
+            var result = _userService.Delete(userEditDto);
 
             if (result.Success)
             {
@@ -135,9 +149,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(User user)
+        public IActionResult Update(UserEditDto userEditDto)
         {
-            var result = _userService.Update(user);
+            var result = _userService.Update(userEditDto);
 
             if (result.Success)
             {

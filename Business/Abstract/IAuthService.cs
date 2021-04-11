@@ -7,8 +7,8 @@ namespace Business.Abstract
 {
     public interface IAuthService
     {
-        public IDataResult<User> Register(UserRegisterDto userForRegisterDto);
-        public IDataResult<User> Login(UserLoginDto userForLoginDto);
-        public IDataResult<AccessToken> CreateAccessToken(User user);
+        public IDataResult<UserResponseDto> Register(UserRegisterDto userForRegisterDto);
+        public IDataResult<UserResponseDto> Login(UserLoginDto userForLoginDto);
+        /*public IDataResult<AccessToken> CreateAccessToken(User user);*/
     }
 }

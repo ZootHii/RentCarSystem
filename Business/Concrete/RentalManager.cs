@@ -18,18 +18,22 @@ namespace Business.Concrete
     public class RentalManager : IRentalService
     {
         private readonly IRentalDal _rentalDal;
+        private readonly ICustomerService _customerService;
+        private readonly IFindeksService _findeksService;
 
-        public RentalManager(IRentalDal rentalDal)
+        public RentalManager(IRentalDal rentalDal, ICustomerService customerService, IFindeksService findeksService)
         {
             _rentalDal = rentalDal;
+            _customerService = customerService;
+            _findeksService = findeksService;
         }
 
         [ValidationAspect(typeof(RentalValidator))]
-        [TransactionScopeAspect]
         public IResult Add(Rental rental)
         {
             var result = BusinessRules.Run(CheckIfCarInUse(rental.CarId),
-                CheckIfRentalTimeSpanCorrect(rental));
+                CheckIfRentalTimeSpanCorrect(rental),
+                CheckIfCustomerFindeksScoreEnoughForCar(rental.CustomerId, rental.CarId));
             if (result != null)
             {
                 return result;
@@ -40,11 +44,11 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(RentalValidator))]
-        [TransactionScopeAspect]
         public IResult Update(Rental rental)
         {
             var result = BusinessRules.Run(CheckIfCarInUse(rental.CarId),
-                CheckIfRentalTimeSpanCorrect(rental));
+                CheckIfRentalTimeSpanCorrect(rental),
+                CheckIfCustomerFindeksScoreEnoughForCar(rental.CustomerId, rental.CarId));
             if (result != null)
             {
                 return result;
@@ -126,6 +130,20 @@ namespace Business.Concrete
 
             return new SuccessResult();
         }
+
+        
+        private IResult CheckIfCustomerFindeksScoreEnoughForCar(int customerId, int carId)
+        {
+            var customerById = _customerService.GetCustomerById(customerId);
+            if (customerById.Success)
+            {
+                var result = _findeksService.CheckUserFindeksScoreEnoughForCar(carId, customerById.Data.UserId);
+                return result;
+            }
+
+            return new ErrorResult("CheckIfCustomerFindeksScoreEnoughForCar-> RENTAL MANAGER");
+        }
+        
 
         #endregion
     }

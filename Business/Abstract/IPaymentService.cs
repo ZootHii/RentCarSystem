@@ -3,7 +3,7 @@
 namespace Business.Abstract
 {
     // FAKE FOR TEST
-    public interface IFakePaymentService
+    public interface IPaymentService
     {
         public IResult Add(int totalPrice); // FAKE FOR TEST
     }

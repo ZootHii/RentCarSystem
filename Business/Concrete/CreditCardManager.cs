@@ -6,6 +6,7 @@ using Entities.Concrete;
 
 namespace Business.Concrete
 {
+    // TODO security operations HASHING will be added
     public class CreditCardManager : ICreditCardService
     {
         private readonly ICreditCardDal _creditCardDal;
@@ -19,6 +20,16 @@ namespace Business.Concrete
         {
             _creditCardDal.Add(creditCard);
             return new SuccessResult("credit card added");
+        }
+
+        public IDataResult<CreditCard> GetCreditCardByCustomerId(int customerId)
+        {
+            var result = _creditCardDal.Get(card => card.CustomerId == customerId);
+            if (result == null)
+            {
+                return new ErrorDataResult<CreditCard>("no saved card found");
+            }
+            return new SuccessDataResult<CreditCard>("get credit card", _creditCardDal.Get(card => card.CustomerId == customerId));
         }
     }
 }

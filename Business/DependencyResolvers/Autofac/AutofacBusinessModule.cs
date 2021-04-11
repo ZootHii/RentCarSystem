@@ -42,7 +42,7 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<CreditCardManager>().As<ICreditCardService>().SingleInstance();
             builder.RegisterType<EfCreditCardDal>().As<ICreditCardDal>().SingleInstance();
 
-            builder.RegisterType<FakePaymentManager>().As<IFakePaymentService>().SingleInstance();
+            builder.RegisterType<PaymentManager>().As<IPaymentService>().SingleInstance();
             
             // TODO add validators
             builder.RegisterType<OperationClaimManager>().As<IOperationClaimService>().SingleInstance();

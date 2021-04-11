@@ -8,18 +8,18 @@ namespace WebAPI.Controllers
     [Route("[controller]")]
     public class PaymentsController : Controller // FAKE PAYMENT
     {
-        private readonly IFakePaymentService _fakePaymentService;
+        private readonly IPaymentService paymentService;
 
-        public PaymentsController(IFakePaymentService fakePaymentService)
+        public PaymentsController(IPaymentService paymentService)
         {
-            _fakePaymentService = fakePaymentService;
+            this.paymentService = paymentService;
         }
         
         [HttpPost("add")]
         public IActionResult Add([FromBody]int totalPrice) // Test
         {
             Console.WriteLine("TOTAL PRİCE BU KADAR " + totalPrice);
-            var result = _fakePaymentService.Add(totalPrice);
+            var result = paymentService.Add(totalPrice);
             
             if (result.Success)
             {

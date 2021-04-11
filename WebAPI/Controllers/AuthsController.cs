@@ -1,5 +1,5 @@
-﻿using System.Reflection.Metadata;
-using Business.Abstract;
+﻿using Business.Abstract;
+using Core.Entities.Concrete;
 using Entities.Concrete.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,11 +22,10 @@ namespace WebAPI.Controllers
             var resultUser = _authService.Login(userLoginDto);
             if (!resultUser.Success)
             {
-                return BadRequest(resultUser.Message);
+                return BadRequest(resultUser);
             }
 
-            var resultToken = _authService.CreateAccessToken(resultUser.Data);
-            return Ok(resultToken);
+            return Ok(resultUser);
         }
         
         [HttpPost("register")]
@@ -38,8 +37,25 @@ namespace WebAPI.Controllers
                 return BadRequest(resultUser);
             }
 
-            var resultToken = _authService.CreateAccessToken(resultUser.Data);
-            return Ok(resultToken);
+            return Ok(resultUser);
         }
+        
+        /*[HttpPost("access")]
+        public ActionResult Ac()
+        {
+            var user = new User
+            {
+                EMail = "a@.d",
+                FirstName = "a",
+                LastName = "b",
+            };
+            var resultToken = _authService.CreateAccessToken(user);
+            if (!resultToken.Success)
+            {
+                return BadRequest(resultToken);
+            }
+            return Ok(resultToken);
+        }*/
+        
     }
 }

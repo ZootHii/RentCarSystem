@@ -24,7 +24,7 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        //[SecuredOperationAspect("car.add, admin")]
+        [SecuredOperationAspect("car.add, admin")]
         [ValidationAspect(typeof(CarValidator))]
         [TransactionScopeAspect]
         [CacheRemoveAspect("ICarService.Get")]
@@ -34,6 +34,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarAdded);
         }
 
+        [SecuredOperationAspect("car.update, admin")]
         [ValidationAspect(typeof(CarValidator))]
         [TransactionScopeAspect]
         [CacheRemoveAspect("ICarService.Get")]
@@ -44,6 +45,7 @@ namespace Business.Concrete
         }
 
         [TransactionScopeAspect]
+        [SecuredOperationAspect("car.delete, admin")]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car car)
         {

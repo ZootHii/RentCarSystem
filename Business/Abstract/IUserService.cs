@@ -8,9 +8,12 @@ namespace Business.Abstract
     public interface IUserService
     {
         public IResult Add(User user);
-        public IResult Update(User user);
-        public IResult Delete(User user);
+        //public IResult Update(User user);
+        public IResult Update(UserEditDto userEditDto);
+        public IResult Delete(UserEditDto userEditDto);
+        //public IResult Delete(User user);
         public IDataResult<User> GetUserById(int userId);
+        public IDataResult<UserResponseDto> GetUserResponseByEMail(string eMail);
         public IDataResult<User> GetUserByEMail(string eMail);
         public IDataResult<List<User>> GetAllUsers();
         public IDataResult<List<User>> GetUsersByFirstName(string firstName);

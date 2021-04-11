@@ -9,13 +9,13 @@ namespace Business.ValidationRules.FluentValidation
     {
         private readonly DateTime now = DateTime.Now;
 
-        public RentalValidator()
+        /*public RentalValidator()
         {
             RuleFor(rental => rental.CarId).NotEmpty();
             RuleFor(rental => rental.CustomerId).NotEmpty();
             RuleFor(rental => rental.RentDate).NotEmpty().WithMessage(Messages.RentalInvalidRentDate);
             RuleFor(rental => rental.RentDate).GreaterThanOrEqualTo(now.AddSeconds(-now.Second))
                 .WithMessage(Messages.RentalInvalidRentDate);
-        }
+        }*/
     }
 }

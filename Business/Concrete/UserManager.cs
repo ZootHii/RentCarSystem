@@ -2,12 +2,15 @@
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
+using Castle.Core.Internal;
 using Core.Aspects.Autofac.Validation;
 using Core.Entities.Concrete;
 using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
+using Core.Utilities.Security.Hashing;
 using DataAccess.Abstract;
+using Entities.Concrete;
 using Entities.Concrete.DTOs;
 
 namespace Business.Concrete
@@ -15,10 +18,12 @@ namespace Business.Concrete
     public class UserManager : IUserService
     {
         private readonly IUserDal _userDal;
+        private readonly ICustomerService _customerService;
 
-        public UserManager(IUserDal userDal)
+        public UserManager(IUserDal userDal, ICustomerService customerService)
         {
             _userDal = userDal;
+            _customerService = customerService;
         }
 
         [ValidationAspect(typeof(UserValidator))]
@@ -31,24 +36,90 @@ namespace Business.Concrete
             }
 
             _userDal.Add(user);
+            var userForCustomer = _userDal.Get(u => u.EMail == user.EMail);
+            _customerService.Add(new Customer
+            {
+                UserId = userForCustomer.Id,
+                CompanyName = "" //  TODO WHEN REGISTER ITS EMPTY USER CAN CHANGE FROM PROFILE
+            });
+            
             return new SuccessResult(Messages.UserAdded);
         }
 
-        [ValidationAspect(typeof(UserValidator))]
-        public IResult Update(User user)
+        // TODO CONTROL CURRENT PASSWORD
+        //[ValidationAspect(typeof(UserValidator))]
+        public IResult Update(UserEditDto userEditDto)
         {
-            var result = BusinessRules.Run(CheckIfUserExistsWithTheSameEMail<object>(user.EMail).IResult);
-            if (result != null)
+            
+            var userToUpdate = _userDal.Get(u => u.Id == userEditDto.Id);
+            
+            if (!HashingHelper.VerifyPasswordHash(userEditDto.CurrentPassword, userToUpdate.PasswordHash, userToUpdate.PasswordSalt))
             {
-                return result;
+                return new ErrorResult(Messages.PasswordNotTrue);
             }
-
+            
+            var user = new User
+            {
+                Id = userEditDto.Id,
+                EMail = userEditDto.EMail,
+                FirstName = userEditDto.FirstName,
+                LastName = userEditDto.LastName,
+                Status = false,
+            };
+            
+            if (!userEditDto.NewPassword.IsNullOrEmpty())
+            {
+                HashingHelper.CreatePasswordHash(userEditDto.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
+            }
+            
+            // TODO check no change in password
+            if (userEditDto.NewPassword.IsNullOrEmpty())
+            {
+                user.PasswordHash = userToUpdate.PasswordHash;
+                user.PasswordSalt = userToUpdate.PasswordSalt;
+            }
+            
             _userDal.Update(user);
+
+            int customerId = _customerService.GetCustomerByUserId(userToUpdate.Id).Data.Id;
+            
+            _customerService.Update(new Customer
+            {
+                Id = customerId,
+                UserId = userEditDto.Id,
+                CompanyName = userEditDto.CompanyName // TODO WHEN PROFILE EDIT ITS EMPTY USER CAN CHANGE AND UPDATE
+            });
             return new SuccessResult(Messages.UserUpdated);
         }
 
-        public IResult Delete(User user)
+        // TODO CONTROL CURRENT PASSWORD
+        public IResult Delete(UserEditDto userEditDto)
         {
+            var userToDelete = _userDal.Get(u => u.Id == userEditDto.Id);
+            
+            if (!HashingHelper.VerifyPasswordHash(userEditDto.CurrentPassword, userToDelete.PasswordHash, userToDelete.PasswordSalt))
+            {
+                return new ErrorResult(Messages.PasswordNotTrue);
+            }
+
+            /*HashingHelper.CreatePasswordHash(userEditDto.NewPassword, out byte[] passwordHash, out byte[] passwordSalt);*/
+
+            var customerToDelete = _customerService.GetCustomerByUserId(userEditDto.Id).Data;
+            _customerService.Delete(customerToDelete);
+            
+            var user = new User
+            {
+                Id = userEditDto.Id,
+                /*EMail = userEditDto.EMail,
+                FirstName = userEditDto.FirstName,
+                LastName = userEditDto.LastName,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Status = false,*/
+            };
+            
             _userDal.Delete(user);
             return new SuccessResult(Messages.UserDeleted);
         }
@@ -58,6 +129,26 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(_userDal.Get(user => user.Id == userId));
         }
         
+        
+        public IDataResult<UserResponseDto> GetUserResponseByEMail(string eMail)
+        {
+            var result = _userDal.Get(user => user.EMail == eMail);
+            if (result == null)
+            {
+                return new ErrorDataResult<UserResponseDto>(Messages.UserNotFound);
+            }
+
+            var userResponse = new UserResponseDto
+            {
+                Id = result.Id,
+                FirstName = result.FirstName,
+                LastName = result.LastName,
+                EMail = result.EMail
+            };
+            
+            return new SuccessDataResult<UserResponseDto>(userResponse);
+        }
+        
         public IDataResult<User> GetUserByEMail(string eMail)
         {
             var result = _userDal.Get(user => user.EMail == eMail);
@@ -65,6 +156,7 @@ namespace Business.Concrete
             {
                 return new ErrorDataResult<User>(Messages.UserNotFound);
             }
+            
             return new SuccessDataResult<User>(result);
         }
 
