@@ -34,10 +34,12 @@ namespace Core.Utilities.Exceptions
             httpContext.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
             const string message = "Internal Server Error";
 
+            var exceptionType = exception.GetType();
+            
             Console.WriteLine(exception.GetType());
             Console.WriteLine(exception.Message);
             
-            if (exception.GetType() == typeof(ValidationException))
+            if (exceptionType == typeof(ValidationException))
             {
                 httpContext.Response.StatusCode = (int) HttpStatusCode.BadRequest;
                 
@@ -45,15 +47,28 @@ namespace Core.Utilities.Exceptions
                 {
                     Message = exception.Message,
                     StatusCode = httpContext.Response.StatusCode,
+                    Type = "ValidationError",
                     ValidationErrors = ((ValidationException) exception).Errors
                 }.ToString());
             }
+            
+            if (exceptionType == typeof(AuthorizationException))
+            {
+                httpContext.Response.StatusCode = (int) HttpStatusCode.BadRequest;
+                return httpContext.Response.WriteAsync(new ErrorDetails
+                {
+                    Message = exception.Message,
+                    StatusCode = httpContext.Response.StatusCode,
+                    Type = "AuthorizationError"
+                }.ToString());
+            }
+            
 
             return httpContext.Response.WriteAsync(new ErrorDetails
             {
-                Message = exception.Message,
-                //Message = message,
+                Message = message,
                 StatusCode = httpContext.Response.StatusCode,
+                Type = "ServerError"
             }.ToString());
         }
         

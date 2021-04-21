@@ -14,5 +14,6 @@ namespace Business.Abstract
         public Task<IDataResult<CarImage>> GetCarImageById(int carImageId);
         public IDataResult<List<CarImage>> GetAllCarImages();
         public IDataResult<List<CarImage>> GetCarImagesByCarId(int carId);
+        public IDataResult<CarImage> GetCarPreviewFirstImageByCarId(int carId);
     }
 }

@@ -55,6 +55,19 @@ namespace WebAPI.Controllers
 
             return BadRequest(result);
         }
+        
+        [HttpGet("get/preview/first/image/by/car/id")]
+        public IActionResult GetCarPreviewFirstImageByCarId(int carId)
+        {
+            var result = _carImageService.GetCarPreviewFirstImageByCarId(carId);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
 
         /*
          Send nothing for id

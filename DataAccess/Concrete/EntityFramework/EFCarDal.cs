@@ -2,6 +2,7 @@
 using System.Linq;
 using Core.DataAccess.EntityFramework;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework.DbContexts;
 using Entities.Concrete;
 using Entities.Concrete.DTOs;
 
@@ -93,6 +94,7 @@ namespace DataAccess.Concrete.EntityFramework
                     from car in context.Cars
                     join brand in context.Brands on car.BrandId equals brand.Id
                     join color in context.Colors on car.ColorId equals color.Id
+                    
                     where car.Id == carId 
                     
                     select new CarDetailDto

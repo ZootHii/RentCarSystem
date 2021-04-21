@@ -3,6 +3,7 @@ using System.Linq;
 using Core.DataAccess.EntityFramework;
 using Core.Entities.Concrete;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework.DbContexts;
 using Entities.Concrete.DTOs;
 
 namespace DataAccess.Concrete.EntityFramework

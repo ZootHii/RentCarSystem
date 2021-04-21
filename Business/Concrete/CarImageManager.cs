@@ -120,11 +120,19 @@ namespace Business.Concrete
             // we must always return Image/Images so always success
             var result = _carImageDal.GetAll(image => image.CarId == carId);
             return result.Count == 0 
-                ? new SuccessDataResult<List<CarImage>>(Messages.CarHasNoImage, GetDefaultCarImagesForTheCar(carId)) 
+                ? new SuccessDataResult<List<CarImage>>(Messages.CarHasNoImage, GetDefaultCarImagesForTheCar(carId).listData) 
                 : new SuccessDataResult<List<CarImage>>(Messages.CarImagesListedByCarId, result);
         }
 
-        private List<CarImage> GetDefaultCarImagesForTheCar(int carId)
+        public IDataResult<CarImage> GetCarPreviewFirstImageByCarId(int carId)
+        {
+            var result = _carImageDal.GetAll(image => image.CarId == carId); 
+            return result.Count == 0 
+                ? new SuccessDataResult<CarImage>(Messages.CarHasNoImage, GetDefaultCarImagesForTheCar(carId).data) 
+                : new SuccessDataResult<CarImage>(Messages.CarImagesListedByCarId, result[0]); // get first image of car
+        }
+        
+        private (List<CarImage> listData, CarImage data) GetDefaultCarImagesForTheCar(int carId)
         {
             var defaultCarImage = new CarImage
             {
@@ -132,7 +140,8 @@ namespace Business.Concrete
                 ImageName = FileHelper.defaultImageName,
                 ImagePath = FileHelper.GetDefaultImage(),
             };
-            return new List<CarImage> {defaultCarImage};
+            
+            return (new List<CarImage> {defaultCarImage}, defaultCarImage);
         }
         
         #region Rules

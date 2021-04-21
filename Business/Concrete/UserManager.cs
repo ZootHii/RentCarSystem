@@ -1,17 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Business.Abstract;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Castle.Core.Internal;
 using Core.Aspects.Autofac.Validation;
 using Core.Entities.Concrete;
+using Core.Extensions;
 using Core.Utilities.Business;
+using Core.Utilities.IoC;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Core.Utilities.Security.Hashing;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.Concrete.DTOs;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Business.Concrete
 {
@@ -19,11 +24,13 @@ namespace Business.Concrete
     {
         private readonly IUserDal _userDal;
         private readonly ICustomerService _customerService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public UserManager(IUserDal userDal, ICustomerService customerService)
         {
             _userDal = userDal;
             _customerService = customerService;
+            _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
         }
 
         [ValidationAspect(typeof(UserValidator))]
@@ -187,7 +194,18 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<OperationClaimDto>>(_userDal.GetUserOperationClaims(user));
         }
-        
+
+        public IDataResult<List<string>> GetLoggedUserOperationClaims()
+        {
+            if (_httpContextAccessor.HttpContext != null)
+            {
+                var claimRolesList = _httpContextAccessor.HttpContext.User.ClaimRoles();
+                return new SuccessDataResult<List<string>>("Successful claims", claimRolesList);
+            }
+
+            return new ErrorDataResult<List<string>>("Error Claim");
+        }
+
         public (IResult IResult, IDataResult<T> IDataResult) CheckIfUserExistsWithTheSameEMail<T>(string eMail)
         {
             var result = GetUserByEMail(eMail);

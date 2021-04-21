@@ -18,10 +18,12 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         private readonly ICarDal _carDal;
+        private ICarImageService _carImageService;
 
-        public CarManager(ICarDal carDal)
+        public CarManager(ICarDal carDal, ICarImageService carImageService)
         {
             _carDal = carDal;
+            _carImageService = carImageService;
         }
 
         [SecuredOperationAspect("car.add, admin")]
@@ -59,6 +61,7 @@ namespace Business.Concrete
             return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == carId));
         }
         
+        //[SecuredOperationAspect("admin")]
         [CacheAspect]
         [PerformanceAspect(5)]
         public IDataResult<List<Car>> GetAllCars()
@@ -85,6 +88,16 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CarDetailDto>>(Messages.CarsListedDetails, _carDal.GetCarsDetails());
         }
+        
+        [CacheAspect(30)]
+        public IDataResult<List<CarDetailDto>> GetCarsDetailsWithPreviewFirstImage()
+        {
+            var carsDetails = _carDal.GetCarsDetails();
+            var carsDetailsWithPreviewFirstImage = SetPreviewFirstImage(carsDetails);
+            
+            return new SuccessDataResult<List<CarDetailDto>>(Messages.CarsListedDetails, carsDetailsWithPreviewFirstImage);
+        }
+        
 
         [CacheAspect]
         public IDataResult<List<CarDetailDto>> GetCarsDetailsByBrandId(int brandId)
@@ -102,6 +115,18 @@ namespace Business.Concrete
         public IDataResult<CarDetailDto> GetCarDetailsByCarId(int carId)
         {
             return new SuccessDataResult<CarDetailDto>("", _carDal.GetCarDetailsByCarId(carId));
+        }
+
+
+        public List<CarDetailDto> SetPreviewFirstImage(List<CarDetailDto> carDetails)
+        {
+            foreach (var carDetail in carDetails)
+            {
+                var carPreviewFirstImageByCarId= _carImageService.GetCarPreviewFirstImageByCarId(carDetail.Id);
+                carDetail.PreviewFirstImage = carPreviewFirstImageByCarId.Data.ImagePath;
+            }
+
+            return carDetails;
         }
     }
 }

@@ -98,10 +98,13 @@ namespace WebAPI
 
             app.UseCustomExceptionMiddleware();
             
+            // TODO NO NEED any cors for android
             app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
-            
-            app.UseHttpsRedirection();
 
+            // TODO DON'T USE this when testing android because we use http
+            // TODO Android requires a self-signed certificate to connect to https
+            //app.UseHttpsRedirection(); 
+            
             app.UseRouting();
             
             app.UseAuthentication();

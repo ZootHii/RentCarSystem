@@ -20,6 +20,7 @@ namespace Business.Abstract
         public IDataResult<List<User>> GetUsersByLastName(string lastName);
         public IDataResult<List<User>> GetUsersByEMail(string eMail);
         public IDataResult<List<OperationClaimDto>> GetUserOperationClaims(User user);
+        public IDataResult<List<string>> GetLoggedUserOperationClaims();
 
         /*#region Rules
         /// <summary>

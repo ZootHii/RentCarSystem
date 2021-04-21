@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Business.Abstract;
+using Business.Aspects.Autofac.SecuredOperation.Jwt;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
@@ -22,7 +22,8 @@ namespace Business.Concrete
         {
             _brandDal = brandDal;
         }
-
+        
+        //[SecuredOperationAspect("admin")]
         [ValidationAspect(typeof(BrandValidator))]
         [CacheRemoveAspect("Get")]
         public IResult Add(Brand brand)
@@ -58,12 +59,14 @@ namespace Business.Concrete
             return new SuccessResult(Messages.BrandDeleted);
         }
 
+        [SecuredOperationAspect("admin")]
         [CacheAspect]
         public IDataResult<Brand> GetBrandById(int brandId)
         {
             return new SuccessDataResult<Brand>(_brandDal.Get(b => b.Id == brandId));
         }
 
+        //[SecuredOperationAspect("admin")]
         [CacheAspect]
         public IDataResult<List<Brand>> GetAllBrands()
         {

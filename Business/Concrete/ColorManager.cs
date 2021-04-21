@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Business.Abstract;
+using Business.Aspects.Autofac.SecuredOperation.Jwt;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
@@ -64,6 +65,7 @@ namespace Business.Concrete
         }
 
         [CacheAspect]
+        [SecuredOperationAspect("admin")]
         public IDataResult<List<Color>> GetAllColors()
         {
             return new SuccessDataResult<List<Color>>(_colorDal.GetAll());

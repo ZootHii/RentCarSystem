@@ -14,6 +14,7 @@ namespace Entities.Concrete.DTOs
         public DateTime ModelYear { get; set; }
         public decimal DailyPrice { get; set; }
         public string Description { get; set; }
+        public byte[] PreviewFirstImage { get; set; }
 
         /*public override string ToString()
         {

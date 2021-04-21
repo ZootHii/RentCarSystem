@@ -3,6 +3,7 @@ using System.Linq;
 using Business.Constants;
 using Castle.DynamicProxy;
 using Core.Extensions;
+using Core.Utilities.Exceptions;
 using Core.Utilities.Interceptors;
 using Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
@@ -13,8 +14,8 @@ namespace Business.Aspects.Autofac.SecuredOperation.Jwt
 {
     public class SecuredOperationAspect : MethodInterception
     {
-        private string[] _roles;
-        private IHttpContextAccessor _httpContextAccessor;
+        private readonly string[] _roles;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         
         public SecuredOperationAspect(string roles)
         {
@@ -24,27 +25,30 @@ namespace Business.Aspects.Autofac.SecuredOperation.Jwt
 
         protected override void OnBefore(IInvocation invocation)
         {
-            var claimRoles = _httpContextAccessor.HttpContext.User.ClaimRoles();
+            if (_httpContextAccessor.HttpContext != null)
+            {
+                var claimRoles = _httpContextAccessor.HttpContext.User.ClaimRoles();
             
-            Console.WriteLine(_httpContextAccessor.HttpContext.Request.GetDisplayUrl());
-            /*foreach (string role in _roles)
-            {
-                Console.WriteLine("Role için : "+role);
-            }
-            foreach (string claimRole in claimRoles)
-            {
-                Console.WriteLine("claim role için : " + claimRole.Length);
-            }*/
-
-            foreach (string role in _roles)
-            {
-                if (claimRoles.Contains(role))
+                Console.WriteLine(_httpContextAccessor.HttpContext.Request.GetDisplayUrl());
+                /*foreach (string role in _roles)
                 {
-                    return;
+                    Console.WriteLine("Role için : "+role);
+                }
+                foreach (string claimRole in claimRoles)
+                {
+                    Console.WriteLine("claim role için : " + claimRole.Length);
+                }*/
+
+                foreach (string role in _roles)
+                {
+                    if (claimRoles.Contains(role))
+                    {
+                        return;
+                    }
                 }
             }
-            
-            throw new Exception(Messages.AuthorizationDenied);
+
+            throw new AuthorizationException(Messages.AuthorizationDenied);
         }
     }
 }

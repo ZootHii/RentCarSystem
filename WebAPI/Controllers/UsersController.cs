@@ -122,6 +122,19 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         
+        [HttpGet("get/logged/operation/claims")]
+        public IActionResult GetLoggedUserOperationClaims()
+        {
+            var result = _userService.GetLoggedUserOperationClaims();
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        
         [HttpPost("add")]
         public IActionResult Add(User user)
         {

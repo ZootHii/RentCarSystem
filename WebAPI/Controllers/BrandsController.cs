@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using System.Threading;
+using Business.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,7 @@ namespace WebAPI.Controllers
         [HttpGet("get/all")]
         public IActionResult GetAllBrands()
         {
+            Thread.Sleep(7000);
             var result = _brandService.GetAllBrands();
 
             if (result.Success)

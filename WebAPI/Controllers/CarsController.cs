@@ -1,4 +1,5 @@
-﻿using Business.Abstract;
+﻿using System.Threading;
+using Business.Abstract;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,6 +32,7 @@ namespace WebAPI.Controllers
         [HttpGet("get/all")]
         public IActionResult GetAllCars()
         {
+            //Thread.Sleep(7000);
             var result = _carService.GetAllCars();
 
             if (result.Success)
@@ -119,6 +121,19 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("get/all/details/with/preview/first/image")]
+        public IActionResult GetCarsDetailsWithPreviewFirstImage()
+        {
+            var result = _carService.GetCarsDetailsWithPreviewFirstImage();
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
+        }
+        
         [HttpPost("add")]
         public IActionResult Add(Car car)
         {
