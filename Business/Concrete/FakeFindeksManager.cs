@@ -1,5 +1,6 @@
 ﻿using System;
 using Business.Abstract;
+using Business.Constants;
 using Core.Entities.Concrete;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -24,7 +25,7 @@ namespace Business.Concrete
             Console.WriteLine(CalculateCarMinFindeksScore(carId));*/
             if (CalculateUserFindeksScore(userId) < CalculateCarMinFindeksScore(carId))
             {
-                return new ErrorResult("Findeks Score is not enough for this car.");
+                return new ErrorResult(Messages.CustomerFindeksScoreIsNotEnough);
             }
 
             return new SuccessResult();

@@ -124,6 +124,7 @@ namespace WebAPI.Controllers
         [HttpGet("get/all/details/with/preview/first/image")]
         public IActionResult GetCarsDetailsWithPreviewFirstImage()
         {
+            Thread.Sleep(1000);
             var result = _carService.GetCarsDetailsWithPreviewFirstImage();
 
             if (result.Success)

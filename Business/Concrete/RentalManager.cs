@@ -92,6 +92,15 @@ namespace Business.Concrete
                 _rentalDal.GetRentalsDetails());
         }
 
+        [ValidationAspect(typeof(RentalValidator))]
+        public IResult CheckIfCarCanBeRented(Rental rental)
+        {
+            var result = BusinessRules.Run(CheckIfCarInUse(rental.CarId),
+                CheckIfRentalTimeSpanCorrect(rental),
+                CheckIfCustomerFindeksScoreEnoughForCar(rental.CustomerId, rental.CarId));
+            return result ?? new SuccessResult();
+        }
+
         #region Rules
 
         private IResult CheckIfCarInUse(int carId)
@@ -141,7 +150,7 @@ namespace Business.Concrete
                 return result;
             }
 
-            return new ErrorResult("CheckIfCustomerFindeksScoreEnoughForCar-> RENTAL MANAGER");
+            return new ErrorResult(Messages.CustomerFindeksScoreIsNotEnough);
         }
         
 

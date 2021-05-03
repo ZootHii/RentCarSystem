@@ -56,5 +56,6 @@
         public static string ColorAdded => "Color is successfully Added";
         public static string ColorUpdated => "Color is successfully Updated";
         public static string ColorDeleted => "Color is successfully Deleted";
+        public static string CustomerFindeksScoreIsNotEnough => "Findeks Score is not enough for this car.";
     }
 }

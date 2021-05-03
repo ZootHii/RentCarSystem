@@ -36,9 +36,9 @@ namespace Business.Concrete
             return new SuccessResult(Messages.CarAdded);
         }
 
-        [SecuredOperationAspect("car.update, admin")]
-        [ValidationAspect(typeof(CarValidator))]
-        [TransactionScopeAspect]
+        //[SecuredOperationAspect("car.update, admin")]
+        //[ValidationAspect(typeof(CarValidator))]
+        //[TransactionScopeAspect]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
@@ -89,7 +89,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(Messages.CarsListedDetails, _carDal.GetCarsDetails());
         }
         
-        [CacheAspect(30)]
+        //[CacheAspect(30)]
         public IDataResult<List<CarDetailDto>> GetCarsDetailsWithPreviewFirstImage()
         {
             var carsDetails = _carDal.GetCarsDetails();
