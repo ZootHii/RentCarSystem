@@ -15,5 +15,6 @@ namespace Business.Abstract
         public IDataResult<List<Customer>> GetAllCustomers();
         //public IDataResult<List<Customer>> GetCustomersByUserId(int userId); TODO not proper remove this
         public IDataResult<List<CustomerDetailDto>> GetCustomersDetails();
+        public IDataResult<CustomerDetailDto> GetCustomerDetailsByUserId(int userId);
     }
 }

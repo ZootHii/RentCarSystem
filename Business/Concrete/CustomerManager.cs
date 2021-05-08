@@ -59,5 +59,10 @@ namespace Business.Concrete
         {
             return new SuccessDataResult<List<CustomerDetailDto>>("detail", _customerDal.GetCustomersDetails());
         }
+
+        public IDataResult<CustomerDetailDto> GetCustomerDetailsByUserId(int userId)
+        {
+            return new SuccessDataResult<CustomerDetailDto>("single detail", _customerDal.GetCustomerDetailsByUserId(userId));
+        }
     }
 }

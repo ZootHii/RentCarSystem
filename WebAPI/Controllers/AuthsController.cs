@@ -28,6 +28,18 @@ namespace WebAPI.Controllers
             return Ok(resultUser);
         }
         
+        [HttpPost("login/customer")]
+        public ActionResult LoginCustomer(UserLoginDto userLoginDto)
+        {
+            var resultUser = _authService.LoginCustomer(userLoginDto);
+            if (!resultUser.Success)
+            {
+                return BadRequest(resultUser);
+            }
+
+            return Ok(resultUser);
+        }
+        
         [HttpPost("register")]
         public ActionResult Register(UserRegisterDto userRegisterDto)
         {
